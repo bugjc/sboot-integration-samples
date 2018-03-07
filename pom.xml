@@ -18,6 +18,7 @@
         <module>spring-boot-jwt</module>
         <module>spring-boot-rest</module>
         <module>spring-boot-flywaydb</module>
+        <module>spring-boot-tx</module>
     </modules>
 
 
