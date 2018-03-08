@@ -44,6 +44,7 @@
                     <encoding>UTF8</encoding>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

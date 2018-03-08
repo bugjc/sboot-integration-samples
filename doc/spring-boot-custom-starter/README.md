@@ -2,6 +2,7 @@
 
 - spring-boot-starter-demo(使用启动配置项目)
 - spring-boot-starter-demo-client(自定义启动配置项目) 
+注：打包时先安装启动器项目(mvn clean install)
 
 #### 参考资料
 - [快速开发一个自定义Spring Boot Starter，并使用它](http://www.jianshu.com/p/45538b44e04e)

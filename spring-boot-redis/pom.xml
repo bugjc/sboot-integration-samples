@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spring-boot-redis</artifactId>
+    <packaging>pom</packaging>
 
     <modules>
         <module>spring-boot-redis-mq</module>

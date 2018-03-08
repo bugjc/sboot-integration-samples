@@ -1,18 +1,22 @@
 package com.bugjc.demo;
 
-import com.bugjc.demo.service.ExampleService;
+import com.bugjc.autocinfigure.ExampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 项目入口
+ * @author aoki
+ */
 @SpringBootApplication
 @RestController
-public class DemoApplication {
+public class DemoClientApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(DemoClientApplication.class, args);
 	}
 
 	@Autowired
