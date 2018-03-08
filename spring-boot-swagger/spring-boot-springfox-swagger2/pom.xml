@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.bugjc</groupId>
-        <artifactId>spring-boot-custom-starter</artifactId>
+        <artifactId>spring-boot-swagger</artifactId>
         <version>1.0</version>
     </parent>
     <artifactId>spring-boot-springfox-swagger2</artifactId>
