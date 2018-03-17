@@ -1,5 +1,4 @@
-## 简介
-spring boot example
+## spring boot example
 - **spring-boot-custom-starter**  
 [自定义启动配置示例](doc/spring-boot-custom-starter/README.md)
 - **spring-boot-flywaydb**    
@@ -14,8 +13,10 @@ spring boot example
 [restful实现示例]()
 - **spring-boot-swagger**  
 [生成接口文档示例](doc/spring-boot-swagger/README.md)
-- **transaction-dynamic**
+- **transaction-dynamic**  
 TODO
+- **transaction-dynamic**  
+[标准admin](doc/spring-boot-admin/README.md)
 
 
 

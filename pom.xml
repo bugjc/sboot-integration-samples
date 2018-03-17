@@ -19,6 +19,7 @@
         <module>spring-boot-rest</module>
         <module>spring-boot-flywaydb</module>
         <module>spring-boot-tx</module>
+        <module>spring-boot-admin</module>
     </modules>
 
 
