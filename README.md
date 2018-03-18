@@ -13,9 +13,9 @@
 [restful实现示例]()
 - **spring-boot-swagger**  
 [生成接口文档示例](doc/spring-boot-swagger/README.md)
-- **transaction-dynamic**  
+- **spring-boot-tx**  
 TODO
-- **transaction-dynamic**  
+- **spring-boot-admin**  
 [标准admin](doc/spring-boot-admin/README.md)
 
 
