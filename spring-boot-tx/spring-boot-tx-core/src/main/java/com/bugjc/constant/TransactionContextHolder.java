@@ -18,6 +18,34 @@ public class TransactionContextHolder {
      */
     private static final ThreadLocal<String> TX_GROUP_ID = new ThreadLocal<>();
 
+    /**
+     * 记录事务参与者数量，也用于在递归调用时确定谁时事务发起方
+     */
+    private static final ThreadLocal<Integer> TX_ACTOR_METHOD_NUMBER = new ThreadLocal<Integer>(){
+        @Override
+        protected Integer initialValue() {
+            return 0;
+        }
+    };
+
+    /**
+     * 线程内部唯一序列号：自增+1
+     * @return
+     */
+    public static int getIncrement() {
+        TX_ACTOR_METHOD_NUMBER.set(TX_ACTOR_METHOD_NUMBER.get() + 1);
+        return TX_ACTOR_METHOD_NUMBER.get();
+    }
+
+    /**
+     * 线程内部唯一序列号：自减-1
+     * @return
+     */
+    public static int getDecrement() {
+        TX_ACTOR_METHOD_NUMBER.set(TX_ACTOR_METHOD_NUMBER.get() - 1);
+        return TX_ACTOR_METHOD_NUMBER.get();
+    }
+
 
     public static void setTxObject(Stack<Map<String,Object>> txObject) {
         TX_OBJECT.set(txObject);
@@ -40,6 +68,10 @@ public class TransactionContextHolder {
     }
 
     public static void clearTxGroupId() {
+        TX_GROUP_ID.remove();
+    }
+
+    public static void clearTxActorMethodNum() {
         TX_GROUP_ID.remove();
     }
 

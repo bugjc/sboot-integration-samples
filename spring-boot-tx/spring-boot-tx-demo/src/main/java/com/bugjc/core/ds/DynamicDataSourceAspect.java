@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  * @create 2016年11月30日
  */
 @Aspect
-@Order(-10)
+@Order(-1)
 @Component
 public class DynamicDataSourceAspect {
 
@@ -32,6 +32,7 @@ public class DynamicDataSourceAspect {
 
     @Before("dynamicDataSource()")
     public void changeDataSource(JoinPoint point) throws Throwable {
+
         Object target = point.getTarget();
         String method = point.getSignature().getName();
         logger.debug(method);

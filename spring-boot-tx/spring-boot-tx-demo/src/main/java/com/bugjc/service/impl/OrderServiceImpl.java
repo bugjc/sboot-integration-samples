@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -59,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
             //抛出异常回滚
             i = 10 / 0;
         }
-        testLoopRollback(i++);
+        testLoopRollback(++i);
 
     }
 
@@ -94,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
         if (i == 2){
             return;
         }
-        testLoopCommit(i++);
+        testLoopCommit(++i);
     }
 
 }

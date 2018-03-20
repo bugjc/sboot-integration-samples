@@ -13,6 +13,7 @@ import javax.annotation.Resource;
  */
 @Service
 public class ProductServiceImpl implements ProductService {
+
     @Resource
     private ProductMapper tProductMapper;
 

@@ -33,9 +33,9 @@ public class TransactionGroupAspect {
     public Object doConcurrentOperationService(ProceedingJoinPoint pjp) throws Throwable {
 
         String groupId = null;//定义事务组发起方id
+        int methodNum = 0;//执行的方法数量
         Stack<Map<String, Object>> txMaps = null;//定义LIFO的事务组对象
         try {
-
             //获取事务组对象
             txMaps = TransactionContextHolder.getTxObject();
             if(txMaps == null){
@@ -45,14 +45,19 @@ public class TransactionGroupAspect {
                 //初始化事务组对象
                 TransactionContextHolder.setTxObject(txMaps);
             }
+            //计算线程内总共执行的方法数量
+            methodNum = TransactionContextHolder.getIncrement();
+            logger.info("事务组："+groupId+",本次执行Service层到第"+methodNum+"个方法。");
 
             //执行业务
             Object obj = pjp.proceed();
 
+            //计算线程内总共执行的方法数量
+            methodNum = TransactionContextHolder.getDecrement();
             groupId = pjp.getThis().getClass().getName().hashCode()+"";
             txMaps = TransactionContextHolder.getTxObject();
             String currentTxGroupId = TransactionContextHolder.getTxGroupId();
-            if (currentTxGroupId !=null && currentTxGroupId.equals(groupId)){ //确定事务发起方
+            if (currentTxGroupId !=null && currentTxGroupId.equals(groupId) && methodNum == 0){ //确定事务发起方
 
                 while (txMaps != null && !txMaps.empty()){
                     //获取事务对象
@@ -67,6 +72,7 @@ public class TransactionGroupAspect {
                 //清理事务组对象和事务发起方id
                 TransactionContextHolder.clearTxObject();
                 TransactionContextHolder.clearTxGroupId();
+                TransactionContextHolder.clearTxActorMethodNum();
             }
 
             return obj;
@@ -91,60 +97,12 @@ public class TransactionGroupAspect {
             //清理事务组对象和事务发起方id
             TransactionContextHolder.clearTxObject();
             TransactionContextHolder.clearTxGroupId();
+            TransactionContextHolder.clearTxActorMethodNum();
             logger.error(ex.getMessage());
             throw ex;
         }
 
     }
-
-    /**
-     * 手动开启事物
-     */
-    public void manualStartTrans(){
-        //开启前清除上一次副本变量
-        TransactionContextHolder.clearTxObject();
-        TransactionContextHolder.clearTxGroupId();
-        Stack<Map<String, Object>> txMaps = TransactionContextHolder.getTxObject();
-        if(txMaps == null){
-            txMaps = new Stack<>();
-        }
-        TransactionContextHolder.setTxObject(txMaps);
-    }
-
-    /**
-     * 手动提交事物，针对在service层做循环任务处理的方法
-     */
-    public void manualCommit() {
-        Stack<Map<String, Object>> txMaps = TransactionContextHolder.getTxObject();
-        while (txMaps != null && !txMaps.empty()) {
-            Map<String, Object> hashMap = txMaps.pop();
-            DataSourceTransactionManager dataSourceTransactionManager = (DataSourceTransactionManager) hashMap.get("dstm");
-            TransactionStatus status = (TransactionStatus) hashMap.get("ts");
-            dataSourceTransactionManager.commit(status);
-        }
-        //提交事务后清除
-        TransactionContextHolder.clearTxObject();
-        TransactionContextHolder.clearTxGroupId();
-    }
-
-    /**
-     * 手动回滚事物
-     */
-    public void manualRollback(){
-        Stack<Map<String, Object>> map = TransactionContextHolder.getTxObject();
-        while (map != null && !map.empty()){
-            Map<String,Object> hashMap = (HashMap) map.pop();
-            DataSourceTransactionManager dataSourceTransactionManager = (DataSourceTransactionManager) hashMap.get("dstm");
-            TransactionStatus status = (TransactionStatus) hashMap.get("ts");
-            dataSourceTransactionManager.rollback(status);
-        }
-        //提交事务后清除
-        TransactionContextHolder.clearTxObject();
-        TransactionContextHolder.clearTxGroupId();
-    }
-
-
-
 
 
 }
