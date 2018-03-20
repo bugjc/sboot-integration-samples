@@ -86,23 +86,10 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--sqlserver jdbc驱动-->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>sqljdbc4</artifactId>
-            <version>4.0</version>
-        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.1.4</version>
-        </dependency>
-
-        <!--restful client-->
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
-            <version>3.0.7.Final</version>
         </dependency>
         <!--MyBatis 及 插件依赖-->
         <dependency>
@@ -164,9 +151,16 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>hutool-2160</groupId>
-            <artifactId>hutool-2160</artifactId>
-            <version>2160</version>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

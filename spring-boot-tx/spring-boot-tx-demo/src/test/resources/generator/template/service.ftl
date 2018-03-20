@@ -1,11 +1,11 @@
 package ${basePackage}.service;
-import ${basePackage}.model.${modelNameUpperCamel};
-import ${basePackage}.core.mybatis.Service;
 
 
 /**
- * Created by ${author} on ${date}.
+ *
+ * @author ${author}
+ * @create ${date}.
  */
-public interface ${modelNameUpperCamel}Service extends Service<${modelNameUpperCamel}> {
+public interface ${modelNameUpperCamel}Service{
 
 }

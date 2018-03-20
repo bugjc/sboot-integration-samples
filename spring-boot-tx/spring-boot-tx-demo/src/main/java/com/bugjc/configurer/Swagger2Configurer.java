@@ -33,8 +33,8 @@ public class Swagger2Configurer {
     }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("xxx-电子钱包")
-                .description("本文档是对xxx模块的接口输出，仅供电子钱包相关开发人员查看。")
+                .title("积存-Spring事务")
+                .description("本文档是对Spring多数据源事务小工具包的接口输出，仅供Github stars的人员查看😊。")
                 .version(VERSION)
                 .contact(new Contact("aoki", "", "qing.muyi@foxmail.com"))
                 .build();

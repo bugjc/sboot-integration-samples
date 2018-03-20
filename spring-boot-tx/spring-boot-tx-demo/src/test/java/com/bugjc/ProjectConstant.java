@@ -1,4 +1,4 @@
-package com.bugjc.core.constants;
+package com.bugjc;
 
 /**
  * 项目常量

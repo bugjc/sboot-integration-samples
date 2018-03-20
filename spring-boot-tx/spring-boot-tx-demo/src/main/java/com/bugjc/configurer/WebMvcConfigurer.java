@@ -7,7 +7,6 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.bugjc.core.dto.Result;
 import com.bugjc.core.dto.ResultCode;
-import com.bugjc.core.exception.ServiceException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -94,14 +93,12 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
             public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
                 Result result = new Result();
                 //业务失败的异常，如“账号或密码错误”
-                if (e instanceof ServiceException) {
-                    result.setCode(ResultCode.FAIL).setMessage(e.getMessage());
-                    logger.info(e.getMessage());
-                } else if (e instanceof NoHandlerFoundException) {
+                if (e instanceof NoHandlerFoundException) {
                     result.setCode(ResultCode.NOT_FOUND).setMessage("接口 [" + request.getRequestURI() + "] 不存在");
                 } else if (e instanceof ServletException) {
                     result.setCode(ResultCode.FAIL).setMessage(e.getMessage());
                 } else {
+                    System.out.println(e.getMessage());
                     result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员");
                     String message;
                     if (handler instanceof HandlerMethod) {
@@ -195,7 +192,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         //去除最后一个'&'
         linkString = StringUtils.substring(linkString, 0, linkString.length() - 1);
         //密钥，自己修改
-        String secret = "abcdefghijklmnopq";
+        String secret = "ODMxMzA4MGI1NzZjZWJkMDFiMWQ5NmUxOGQ5NTZmM2E=";
         //混合密钥md5
         String sign = DigestUtils.md5Hex(linkString + secret);
         //比较
