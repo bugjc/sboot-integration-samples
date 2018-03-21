@@ -23,6 +23,10 @@ public class BizException extends RuntimeException {
         this.code = code;
         this.msg = msgFormat;
     }
+    public BizException(Throwable cause) {
+        super(cause);
+    }
+
 
     public BizException() {
         super();

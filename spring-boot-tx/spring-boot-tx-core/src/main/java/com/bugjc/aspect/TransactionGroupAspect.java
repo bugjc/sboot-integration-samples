@@ -98,7 +98,7 @@ public class TransactionGroupAspect {
                 //获取事务失败的方法
                 JSONObject ruleAttributeMap = (JSONObject) hashMap.get("ma");
                 //获取失败方法匹配抛出的异常
-                ex = TransactionRuleUtil.getInstance().matcherException(TransactionRuleUtil.exMap,ruleAttributeMap.getString("rollback"),ex.getMessage());
+                ex = TransactionRuleUtil.getInstance().matcherException(TransactionRuleUtil.exMap,ruleAttributeMap.getString("rollback"),ex);
                 //事务回滚
                 dataSourceTransactionManager.rollback(status);
             }
