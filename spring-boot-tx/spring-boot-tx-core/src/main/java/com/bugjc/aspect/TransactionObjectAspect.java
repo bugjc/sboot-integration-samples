@@ -45,15 +45,41 @@ public class TransactionObjectAspect {
         String methodName = pjp.getSignature().getName();
         //获取事务所有规则方法
         List<String> rules = txConfigurer.getRule();
+        TransactionStatus status = null;
 
         try {
             JSONObject ruleAttribute = TransactionRuleUtil.getInstance().matcherReadOnly(methodName,rules);
             if (ruleAttribute != null && !ruleAttribute.isEmpty()){
-                //开启一个新的事务
-                DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+                //设置事务属性
+                TransactionDefinition transactionDefinition = new TransactionDefinition() {
+                    @Override
+                    public int getPropagationBehavior() {
+                        return TransactionDefinition.PROPAGATION_REQUIRES_NEW;
+                    }
+
+                    @Override
+                    public int getIsolationLevel() {
+                        return TransactionDefinition.ISOLATION_READ_COMMITTED;
+                    }
+
+                    @Override
+                    public int getTimeout() {
+                        return 10;
+                    }
+
+                    @Override
+                    public boolean isReadOnly() {
+                        return false;
+                    }
+
+                    @Override
+                    public String getName() {
+                        return null;
+                    }
+                };
+                DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition(transactionDefinition);
                 //获取事物状态
-                TransactionStatus status = dataSourceTransactionManager.getTransaction(transactionDefinition);
-                logger.info(pjp.getSignature().getName());
+                status = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
                 Stack<Map<String, Object>> transMap = TransactionContextHolder.getTxObject();
                 //保存事务管器、事务状态和所匹配到的规则到线程变量
                 Map<String,Object> hashMap = new HashMap<>();

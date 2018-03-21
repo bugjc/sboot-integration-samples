@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
+ *
+ * TODO 事务超时处理，事务数量多或网络原因导致
  * 事务组切面：定义事务的起点，即事务发起方
  */
 public class TransactionGroupAspect {
@@ -27,37 +29,30 @@ public class TransactionGroupAspect {
     /**
      * 事务发起方创建事务组控制事务的提交与回滚
      * @param pjp
-     * @return
      * @throws Throwable
      */
     public Object doConcurrentOperationService(ProceedingJoinPoint pjp) throws Throwable {
 
-        String groupId = null;//定义事务组发起方id
-        int methodNum = 0;//执行的方法数量
+        int groupId = 0;//默认0为事务发起方
         Stack<Map<String, Object>> txMaps = null;//定义LIFO的事务组对象
         try {
             //获取事务组对象
             txMaps = TransactionContextHolder.getTxObject();
             if(txMaps == null){
                 txMaps = new Stack<>();
-                groupId = pjp.getThis().getClass().getName().hashCode()+"";
-                TransactionContextHolder.setTxGroupId(groupId);
                 //初始化事务组对象
                 TransactionContextHolder.setTxObject(txMaps);
             }
             //计算线程内总共执行的方法数量
-            methodNum = TransactionContextHolder.getIncrement();
-            logger.info("事务组："+groupId+",本次执行Service层到第"+methodNum+"个方法。");
+            TransactionContextHolder.getIncrement();
 
             //执行业务
             Object obj = pjp.proceed();
 
             //计算线程内总共执行的方法数量
-            methodNum = TransactionContextHolder.getDecrement();
-            groupId = pjp.getThis().getClass().getName().hashCode()+"";
+            groupId = TransactionContextHolder.getDecrement();
             txMaps = TransactionContextHolder.getTxObject();
-            String currentTxGroupId = TransactionContextHolder.getTxGroupId();
-            if (currentTxGroupId !=null && currentTxGroupId.equals(groupId) && methodNum == 0){ //确定事务发起方
+            if (groupId == 0){ //确定事务发起方
 
                 while (txMaps != null && !txMaps.empty()){
                     //获取事务对象
@@ -72,7 +67,6 @@ public class TransactionGroupAspect {
                 //清理事务组对象和事务发起方id
                 TransactionContextHolder.clearTxObject();
                 TransactionContextHolder.clearTxGroupId();
-                TransactionContextHolder.clearTxActorMethodNum();
             }
 
             return obj;
@@ -97,7 +91,6 @@ public class TransactionGroupAspect {
             //清理事务组对象和事务发起方id
             TransactionContextHolder.clearTxObject();
             TransactionContextHolder.clearTxGroupId();
-            TransactionContextHolder.clearTxActorMethodNum();
             logger.error(ex.getMessage());
             throw ex;
         }

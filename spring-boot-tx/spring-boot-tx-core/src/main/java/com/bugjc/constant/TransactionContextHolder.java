@@ -13,15 +13,11 @@ public class TransactionContextHolder {
      */
     private static final ThreadLocal<Stack<Map<String,Object>>> TX_OBJECT= new ThreadLocal<>();
 
-    /**
-     * 事务组ID存储对象
-     */
-    private static final ThreadLocal<String> TX_GROUP_ID = new ThreadLocal<>();
 
     /**
-     * 记录事务参与者数量，也用于在递归调用时确定谁时事务发起方
+     * 记录事务参与者数量，也用于确定谁时事务发起方
      */
-    private static final ThreadLocal<Integer> TX_ACTOR_METHOD_NUMBER = new ThreadLocal<Integer>(){
+    private static final ThreadLocal<Integer> TX_GROUP_ID = new ThreadLocal<Integer>(){
         @Override
         protected Integer initialValue() {
             return 0;
@@ -33,8 +29,8 @@ public class TransactionContextHolder {
      * @return
      */
     public static int getIncrement() {
-        TX_ACTOR_METHOD_NUMBER.set(TX_ACTOR_METHOD_NUMBER.get() + 1);
-        return TX_ACTOR_METHOD_NUMBER.get();
+        TX_GROUP_ID.set(TX_GROUP_ID.get() + 1);
+        return TX_GROUP_ID.get();
     }
 
     /**
@@ -42,8 +38,8 @@ public class TransactionContextHolder {
      * @return
      */
     public static int getDecrement() {
-        TX_ACTOR_METHOD_NUMBER.set(TX_ACTOR_METHOD_NUMBER.get() - 1);
-        return TX_ACTOR_METHOD_NUMBER.get();
+        TX_GROUP_ID.set(TX_GROUP_ID.get() - 1);
+        return TX_GROUP_ID.get();
     }
 
 
@@ -59,20 +55,8 @@ public class TransactionContextHolder {
         TX_OBJECT.remove();
     }
 
-    public static void setTxGroupId(String txGroupId) {
-        TX_GROUP_ID.set(txGroupId);
-    }
-
-    public static String getTxGroupId() {
-        return TX_GROUP_ID.get();
-    }
 
     public static void clearTxGroupId() {
         TX_GROUP_ID.remove();
     }
-
-    public static void clearTxActorMethodNum() {
-        TX_GROUP_ID.remove();
-    }
-
 }
