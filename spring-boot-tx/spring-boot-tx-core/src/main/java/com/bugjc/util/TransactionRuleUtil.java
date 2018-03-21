@@ -3,8 +3,7 @@ package com.bugjc.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bugjc.exception.BizException;
-import com.bugjc.exception.TransactionRuleException;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.bugjc.exception.TransactionException;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -123,13 +122,13 @@ public class TransactionRuleUtil {
     public JSONObject matcherReadOnly(String methodName, List<String> rules){
 
         if (rules.isEmpty()){
-            throw TransactionRuleException.UN_MATCH_RULE;
+            throw TransactionException.UN_MATCH_RULE;
         }
 
         //匹配方法事务规则
         RuleAttribute ruleAttribute = TransactionRuleUtil.getInstance().matcherRules(methodName, rules);
         if (ruleAttribute == null){
-            throw TransactionRuleException.UN_CONFIG_RULE;
+            throw TransactionException.UN_CONFIG_RULE;
         }
         //获取匹配到的规则属性
         boolean readOnly = ruleAttribute.getReadOnly();

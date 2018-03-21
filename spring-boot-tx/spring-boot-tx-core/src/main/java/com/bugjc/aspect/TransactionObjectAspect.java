@@ -24,10 +24,11 @@ import java.util.Stack;
 
 /**
  * 开启一个新的事务并追加到事务组对象
+ * @author aoki
  */
 public class TransactionObjectAspect {
 
-    private Logger logger = Logger.getLogger(getClass());
+    private Logger log = Logger.getLogger(getClass());
     @Resource
     private TxConfigurer txConfigurer;
     @Resource
@@ -50,6 +51,7 @@ public class TransactionObjectAspect {
         try {
             JSONObject ruleAttribute = TransactionRuleUtil.getInstance().matcherReadOnly(methodName,rules);
             if (ruleAttribute != null && !ruleAttribute.isEmpty()){
+                log.debug(pjp.getClass()+"方法："+methodName+"加入事务组");
                 //设置事务属性
                 TransactionDefinition transactionDefinition = new TransactionDefinition() {
                     @Override
@@ -64,7 +66,7 @@ public class TransactionObjectAspect {
 
                     @Override
                     public int getTimeout() {
-                        return 10;
+                        return txConfigurer.timeout;
                     }
 
                     @Override
@@ -92,6 +94,7 @@ public class TransactionObjectAspect {
             Object obj = pjp.proceed();
             return obj;
         }catch(Exception ex) {
+            log.debug(ex);
             throw ex;
         }
     }

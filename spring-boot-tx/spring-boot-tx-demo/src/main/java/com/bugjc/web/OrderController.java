@@ -5,6 +5,8 @@ import com.bugjc.model.Order;
 import com.bugjc.service.OrderService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +17,7 @@ import java.util.List;
  * @author aoki
  * @create 2018/03/20.
  */
+@Api(value="订单管理",tags={"订单管理"})
 @RestController
 @RequestMapping("/order")
 public class OrderController {

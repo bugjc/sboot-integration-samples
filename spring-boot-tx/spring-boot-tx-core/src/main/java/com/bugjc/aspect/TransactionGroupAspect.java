@@ -1,7 +1,9 @@
 package com.bugjc.aspect;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bugjc.configurer.TxConfigurer;
 import com.bugjc.constant.TransactionContextHolder;
+import com.bugjc.exception.TransactionException;
 import com.bugjc.util.TransactionRuleUtil;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,18 +15,21 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.TransactionStatus;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
 /**
- *
- * TODO 事务超时处理，事务数量多或网络原因导致
  * 事务组切面：定义事务的起点，即事务发起方
+ * @author aoki
+ * @create 2018-03-21
  */
 public class TransactionGroupAspect {
 
-    private Logger logger = Logger.getLogger(getClass());
+    private Logger log = Logger.getLogger(getClass());
+    @Resource
+    private TxConfigurer txConfigurer;
 
     /**
      * 事务发起方创建事务组控制事务的提交与回滚
@@ -39,9 +44,11 @@ public class TransactionGroupAspect {
             //获取事务组对象
             txMaps = TransactionContextHolder.getTxObject();
             if(txMaps == null){
-                txMaps = new Stack<>();
+                log.debug("开启事务");
+                //记录方法开始执行的时间
+                TransactionContextHolder.setTime(System.currentTimeMillis());
                 //初始化事务组对象
-                TransactionContextHolder.setTxObject(txMaps);
+                TransactionContextHolder.setTxObject(new Stack<>());
             }
             //计算线程内总共执行的方法数量
             TransactionContextHolder.getIncrement();
@@ -54,6 +61,13 @@ public class TransactionGroupAspect {
             txMaps = TransactionContextHolder.getTxObject();
             if (groupId == 0){ //确定事务发起方
 
+                //计算事务组总执行时间加上偏移时间并确定事务组内事务是否超时
+                long second = (System.currentTimeMillis() - TransactionContextHolder.getTime()) / 1000 + txConfigurer.offsetTime;
+                if (second >= txConfigurer.timeout){
+                    throw TransactionException.TX_GROUP_TIMEOUT;
+                }
+
+                log.debug("提交事务");
                 while (txMaps != null && !txMaps.empty()){
                     //获取事务对象
                     Map<String,Object> hashMap = txMaps.pop();
@@ -72,6 +86,7 @@ public class TransactionGroupAspect {
             return obj;
         }catch(Exception ex) {
 
+            log.debug("回滚事务");
             txMaps = TransactionContextHolder.getTxObject();
             while (txMaps != null && !txMaps.empty()){
                 //获取事务对象
@@ -91,7 +106,7 @@ public class TransactionGroupAspect {
             //清理事务组对象和事务发起方id
             TransactionContextHolder.clearTxObject();
             TransactionContextHolder.clearTxGroupId();
-            logger.error(ex.getMessage());
+            log.error(ex.getMessage());
             throw ex;
         }
 

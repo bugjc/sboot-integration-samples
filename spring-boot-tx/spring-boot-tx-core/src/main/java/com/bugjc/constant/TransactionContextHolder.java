@@ -25,6 +25,19 @@ public class TransactionContextHolder {
     };
 
     /**
+     * 记录组开启时间，用以确定是否继续提交
+     */
+    private static final ThreadLocal<Long> TIME = new ThreadLocal<>();
+
+    public static void setTime(long startTime){
+        TIME.set(startTime);
+    }
+
+    public static long getTime(){
+        return TIME.get();
+    }
+
+    /**
      * 线程内部唯一序列号：自增+1
      * @return
      */
