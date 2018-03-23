@@ -98,7 +98,7 @@ public class TransactionGroupAspect {
                 //获取事务失败的方法
                 JSONObject ruleAttributeMap = (JSONObject) hashMap.get("ma");
                 //获取失败方法匹配抛出的异常
-                ex = TransactionRuleUtil.getInstance().matcherException(TransactionRuleUtil.exMap,ruleAttributeMap.getString("rollback"),ex);
+                //ex = TransactionRuleUtil.getInstance().matcherException(TransactionRuleUtil.exMap,ruleAttributeMap.getString("rollback"),ex);
                 //事务回滚
                 dataSourceTransactionManager.rollback(status);
             }
@@ -106,7 +106,7 @@ public class TransactionGroupAspect {
             //清理事务组对象和事务发起方id
             TransactionContextHolder.clearTxObject();
             TransactionContextHolder.clearTxGroupId();
-            log.error(ex.getMessage());
+            log.error(ex.getMessage(),ex);
             throw ex;
         }
 
