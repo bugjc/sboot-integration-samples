@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bugjc.dao.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.bugjc.model.Order">
+<mapper namespace="com.bugjc.tx.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.bugjc.tx.model.Order">
     <!--
       WARNING - @mbg.generated
     -->

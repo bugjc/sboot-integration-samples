@@ -6,7 +6,7 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 
     <!-- 定义切面类 -->
-    <bean name="transactionObjectAspect" class="com.bugjc.aspect.TransactionObjectAspect"/>
+    <bean name="transactionObjectAspect" class="com.bugjc.tx.aspect.TransactionObjectAspect"/>
 
     <aop:config>
         <aop:pointcut id="txObjectPoint" expression="${aspect.tx.object.pointcut}"/>

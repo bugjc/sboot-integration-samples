@@ -25,6 +25,12 @@
         </dependencies>
     </dependencyManagement>
 
+    <properties>
+        <hutool.version>3.1.1</hutool.version>
+        <fastjson.version>1.2.39</fastjson.version>
+        <netty.version>4.1.22.Final</netty.version>
+    </properties>
+
     <dependencies>
 
         <!--Spring Boot依赖-->
@@ -46,11 +52,23 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <!--工具箱-->
+        <dependency>
+            <groupId>com.xiaoleilu</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        <!-- netty -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
         <!--阿里 FastJson依赖-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.39</version>
+            <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
 
