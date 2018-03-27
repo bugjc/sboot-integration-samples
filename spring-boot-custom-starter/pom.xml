@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-boot-starter-demo</module>
-        <module>spring-boot-starter-demo-client</module>
+        <!--<module>spring-boot-starter-demo</module>-->
+        <!--<module>spring-boot-starter-demo-client</module>-->
     </modules>
 
 
