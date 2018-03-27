@@ -11,13 +11,13 @@
 
 
     <modules>
-        <module>spring-boot-custom-starter</module>
-        <module>spring-boot-swagger</module>
-        <module>spring-boot-redis</module>
-        <module>spring-boot-mq</module>
-        <module>spring-boot-jwt</module>
-        <module>spring-boot-rest</module>
-        <module>spring-boot-flywaydb</module>
+        <!--<module>spring-boot-custom-starter</module>-->
+        <!--<module>spring-boot-swagger</module>-->
+        <!--<module>spring-boot-redis</module>-->
+        <!--<module>spring-boot-mq</module>-->
+        <!--<module>spring-boot-jwt</module>-->
+        <!--<module>spring-boot-rest</module>-->
+        <!--<module>spring-boot-flywaydb</module>-->
         <module>spring-boot-tx</module>
         <module>spring-boot-admin</module>
     </modules>
