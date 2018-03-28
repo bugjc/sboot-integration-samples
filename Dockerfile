@@ -2,7 +2,7 @@ FROM hub.c.163.com/wuxukun/maven-aliyun:3-jdk-8
 
 COPY . /app/
 
-RUN cd app && ls -ls
+RUN cd app && ls -ls && pwd
         #构建应用
 RUN cd /spring-boot-example/ mvn clean package \
         #拷贝编译结果到指定目录
