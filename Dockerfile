@@ -7,7 +7,7 @@ RUN cd /app && cat pom.xml
 RUN mvn -v
 
 ## 构建应用
-RUN mvn clean install -DskipTests && ls -ls
+RUN cd /app && mvn clean install -DskipTests
 ## 重命名执行文件
 RUN mv spring-boot-tx/spring-boot-tx-demo/target/*.jar /app/app.jar
 
