@@ -14,6 +14,6 @@ build:
   steps:
     # https://github.com/wercker/step-maven
     - java/maven:
-      goals: install
+      goals: install -DskipTests
       cache_repo: true
       version: 3.5.2
