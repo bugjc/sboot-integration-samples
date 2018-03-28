@@ -5,8 +5,9 @@ COPY . /app/
 RUN cd /app
 
 RUN mvn -v
+
 ## 构建应用
-RUN mvn clean install -DskipTests
+RUN mvn clean install -DskipTests && ls -ls
 ## 重命名执行文件
 RUN mv spring-boot-tx/spring-boot-tx-demo/target/*.jar /app/app.jar
 
