@@ -1,6 +1,6 @@
 FROM hub.c.163.com/wuxukun/maven-aliyun:3-jdk-8
 
-RUN ls -ls
+RUN find / -name spring-boot-example
         #构建应用
 RUN cd /spring-boot-example/ mvn clean package \
         #拷贝编译结果到指定目录
