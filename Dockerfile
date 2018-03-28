@@ -1,15 +1,13 @@
 FROM hub.c.163.com/wuxukun/maven-aliyun:3-jdk-8
-
+## 复制源文件到app目录下
 COPY . /app/
-
-RUN cd app && pwd
-        #构建应用
-RUN mvn clean package \
-        #拷贝编译结果到指定目录
-        && mv spring-boot-tx/spring-boot-tx-demo/target/*.jar /app.jar \
-        #清理编译痕迹
-        && cd / && rm -rf /tmp/build
+## 进入源文件
+RUN cd app
+## 构建应用
+RUN mvn clean package
+## 重命名执行文件
+RUN mv spring-boot-tx/spring-boot-tx-demo/target/*.jar /app/app.jar
 
 VOLUME /tmp
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
