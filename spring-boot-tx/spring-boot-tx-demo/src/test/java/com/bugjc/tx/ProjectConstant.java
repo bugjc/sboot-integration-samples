@@ -9,7 +9,7 @@ public final class ProjectConstant {
     /**
      * 项目基础包名称
      */
-    public static final String BASE_PACKAGE = "com.bugjc";
+    public static final String BASE_PACKAGE = "com.bugjc.tx";
 
     /**
      * Model所在包

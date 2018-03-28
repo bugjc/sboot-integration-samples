@@ -34,12 +34,7 @@ public class TransactionTest extends Tester{
     @Test
     public void testCommit() throws InterruptedException {
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 10; i++) {
-            if (i % 2 == 0){
-                Thread.sleep(100);
-            }
-            orderService.testCommit();
-        }
+        orderService.testCommit();
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) / 1000);
     }

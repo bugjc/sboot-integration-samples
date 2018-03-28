@@ -9,7 +9,7 @@ public class GeneratorTest{
      */
     @Test
     public void test(){
-        CodeGenerator.genCodeByCustomModelName("t_product","Product");
+        //CodeGenerator.genCodeByCustomModelName("t_product","Product");
     }
 
 }
