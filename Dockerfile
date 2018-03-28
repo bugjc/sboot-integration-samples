@@ -2,7 +2,7 @@ FROM hub.c.163.com/wuxukun/maven-aliyun:3-jdk-8
 ## 复制源文件到app目录下
 COPY . /app/
 ## 进入源文件
-RUN cd /app
+RUN cd /app && ls -ls
 ## 构建应用
 RUN mvn clean package
 ## 重命名执行文件
