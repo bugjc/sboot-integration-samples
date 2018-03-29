@@ -10,4 +10,5 @@ RUN mv /app/spring-boot-example/spring-boot-tx/spring-boot-tx-demo/target/*.jar 
 
 VOLUME /app/tmp
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/app-tx.jar"]
+## TODO 设置port
+ENTRYPOINT ["java","-jar","/app/app-tx.jar -Dserver.port=8080"]
