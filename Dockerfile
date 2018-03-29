@@ -15,4 +15,4 @@ ENV port 8080
 EXPOSE $port
 ## 启动服务
 ENTRYPOINT ["java","-jar","/app/app-tx.jar"]
-CMD ["--server.port=$port"]
+CMD ["--server.port=8080"]
