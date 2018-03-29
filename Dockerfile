@@ -1,4 +1,5 @@
-FROM hub.c.163.com/wuxukun/maven-aliyun:3-jdk-8
+FROM registry.cn-hangzhou.aliyuncs.com/chainone/centos7-jdk8-maven3.3.9
+## hub.c.163.com/wuxukun/maven-aliyun:3-jdk-8
 ## 复制源文件到app目录下
 COPY . /app/spring-boot-example/
 ## 构建应用
@@ -9,10 +10,8 @@ RUN mv /app/spring-boot-example/spring-boot-tx/spring-boot-tx-demo/target/*.jar 
     && cd /app && rm -rf /app/spring-boot-example
 
 VOLUME /app/tmp
-## 定义变量
-ENV port=8080
 ## 暴露容器内端口
-EXPOSE $port
+EXPOSE 8080
 ## 启动服务
 ENTRYPOINT ["java","-jar","/app/app-tx.jar"]
-CMD ["--SERVER_PORT=$port"]
+CMD ["--SERVER_PORT=8080"]
