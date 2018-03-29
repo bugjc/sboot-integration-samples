@@ -9,7 +9,10 @@ RUN mv /app/spring-boot-example/spring-boot-tx/spring-boot-tx-demo/target/*.jar 
     && cd /app && rm -rf /app/spring-boot-example
 
 VOLUME /app/tmp
-##暴露容器内端口
-EXPOSE 8080
+## 定义变量
+ENV port 8080
+## 暴露容器内端口
+EXPOSE $port
 ## 启动服务
-ENTRYPOINT ["java","-jar","/app/app-tx.jar","--server.port=8080"]
+ENTRYPOINT ["java","-jar","/app/app-tx.jar"]
+CMD ["--server.port=$port"]
