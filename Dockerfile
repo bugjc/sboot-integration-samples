@@ -12,7 +12,7 @@ VOLUME /app/tmp
 ## 定义变量
 ENV port 8080
 ## 暴露容器内端口
-EXPOSE $port
+EXPOSE 8080
 ## 启动服务
 ENTRYPOINT ["java","-jar","/app/app-tx.jar"]
 CMD ["--server.port=8080"]
