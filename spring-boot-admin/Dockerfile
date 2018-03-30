@@ -2,7 +2,7 @@ FROM maven:3.5.2-alpine as builder
 MAINTAINER aoki <qing.muyi@foxmail.com>
 WORKDIR /app/
 COPY spring-boot-admin .
-
+RUN ls -ls && pwd
 # 编译打包 (jar包生成路径：/app/target)
 RUN cd /app/spring-boot-admin && mvn package -Dmaven.test.skip=true
 
