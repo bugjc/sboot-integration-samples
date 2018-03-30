@@ -17,4 +17,3 @@ EXPOSE 8081
 ## 启动服务
 ENTRYPOINT ["java","-jar","/app/spring-boot-admin-1.0.jar"]
 CMD ["--SERVER_PORT=8081"]
-
