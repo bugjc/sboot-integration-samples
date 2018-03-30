@@ -9,7 +9,7 @@ RUN mv /app/spring-boot-tx/spring-boot-tx-demo/target/*.jar /app/app-tx.jar \
     ## 清理编译痕迹
     && cd /app && rm -rf /app/spring-boot-tx
 
-VOLUME /app/tmp
+VOLUME /app
 ## 暴露容器内端口
 EXPOSE 8080
 ## 启动服务

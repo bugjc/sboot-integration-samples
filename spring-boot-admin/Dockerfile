@@ -11,8 +11,7 @@ FROM openjdk:8-jre-alpine
 MAINTAINER aoki <qing.muyi@foxmail.com>
 WORKDIR /app
 COPY --from=builder /app/spring-boot-admin/target/spring-boot-admin-1.0.jar .
-## TODO 磁盘挂载
-VOLUME /app/tmp
+VOLUME /app
 ## 暴露容器内端口
 EXPOSE 8081
 ## 启动服务
