@@ -1,6 +1,6 @@
 FROM registry.cn-hangzhou.aliyuncs.com/chainone/centos7-jdk8-maven3.3.9
-COPY . .
-RUN ls -ls
+COPY . /app
+RUN cd /app && ls -ls
 WORKDIR /app/spring-boot-tx
 RUN ls -ls
 COPY spring-boot-tx .
