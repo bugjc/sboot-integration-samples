@@ -1,10 +1,7 @@
 FROM registry.cn-hangzhou.aliyuncs.com/chainone/centos7-jdk8-maven3.3.9
-RUN cd /app && ls -ls
-COPY . /app
-RUN cd /app && ls -ls
 WORKDIR /app/spring-boot-tx
+COPY . .
 RUN ls -ls && pwd
-COPY spring-boot-tx .
 COPY pom.xml /app
 ## 构建应用
 RUN mvn clean install -DskipTests
