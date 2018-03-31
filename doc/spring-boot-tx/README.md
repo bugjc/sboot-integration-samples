@@ -1,10 +1,10 @@
-## 利用SPRING编程式事务处理多数据源事务
+## 利用编程式事务处理多数据源事务
 
 #### 主要的技术
 - springboot
 - mybatis
 
-#### USE
+#### 使用
 - 运行resource/test-tx1和test-tx2 sql文件并配置数据库地址
 - 启动AdminApplication.java
 - 浏览器输入地址：IP：PORT

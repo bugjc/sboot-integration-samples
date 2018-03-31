@@ -5,7 +5,7 @@
 - thymeleaf
 - mybatis
 
-#### USE
+#### 使用
 - 运行resource/sys_admin.sql
 - 配置redis
 - 启动AdminApplication.java
