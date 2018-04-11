@@ -2,10 +2,7 @@ package com.bugjc.web;
 
 import com.bugjc.core.dto.Result;
 import com.bugjc.core.dto.ResultGenerator;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @ApiOperation(value="XXXXXX", notes="XXXXX")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "header",dataType = "String",name = "Signature",value = "RSA-SHA1签名",required = true),
+            @ApiImplicitParam(paramType = "path",dataType = "Integer",name = "userId",value = "会员ID",required = true),
+            @ApiImplicitParam(paramType = "query",dataType = "Integer",name = "businessId",value = "业务ID",required = true)
+    })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "添加成功"),
             @ApiResponse(code = 400, message = "对象参数名错误或值格式错误"),
