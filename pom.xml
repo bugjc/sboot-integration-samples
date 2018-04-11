@@ -20,6 +20,7 @@
         <module>spring-boot-flywaydb</module>
         <module>spring-boot-tx</module>
         <module>spring-boot-admin</module>
+        <module>spring-boot-sftp</module>
     </modules>
 
 
