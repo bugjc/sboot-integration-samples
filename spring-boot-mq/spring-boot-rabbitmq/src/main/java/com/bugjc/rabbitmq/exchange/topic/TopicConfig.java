@@ -12,32 +12,36 @@ import org.springframework.context.annotation.Configuration;
  * 配置类
  * @author : aoki
  */
-//@Configuration
+@Configuration
 public class TopicConfig {
 
-    @Bean(name="message")
-    public Queue queueMessage() {
-        return new Queue("topic.message");
+    public static final String TEST_TOPIC_EXCHANGE = "test.topic";
+    public static final String INFO_LOG_QUEUE = "topic.info.log";
+    public static final String ERROR_LOG_QUEUE = "topic.error.log";
+
+    @Bean
+    public Queue topicInfoLogQueue() {
+        return new Queue(INFO_LOG_QUEUE);
     }
 
-    @Bean(name="messages")
-    public Queue queueMessages() {
-        return new Queue("topic.messages");
+    @Bean
+    public Queue topicErrorLogQueue() {
+        return new Queue(ERROR_LOG_QUEUE);
     }
 
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange("exchange");
+        return new TopicExchange(TEST_TOPIC_EXCHANGE);
     }
 
     @Bean
-    Binding bindingExchangeMessage(@Qualifier("message") Queue queueMessage, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessage).to(exchange).with("topic.message");
+    Binding bindingExchangeMessage(Queue topicInfoLogQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(topicInfoLogQueue).to(exchange).with("*.topic.a");
     }
 
     @Bean
-    Binding bindingExchangeMessages(@Qualifier("messages") Queue queueMessages, TopicExchange exchange) {
+    Binding bindingExchangeMessages(Queue topicErrorLogQueue, TopicExchange exchange) {
         //*表示一个词,#表示零个或多个词
-        return BindingBuilder.bind(queueMessages).to(exchange).with("topic.#");
+        return BindingBuilder.bind(topicErrorLogQueue).to(exchange).with("#.topic.b");
     }
 }

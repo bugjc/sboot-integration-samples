@@ -1,17 +1,20 @@
 package com.bugjc.rabbitmq.exchange.direct;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
 
 
 /**
  * 接收消息
  * @author : aoki
  */
-//@Service
+@Slf4j
+@Service
 public class DirectReceiver {
     
     @RabbitListener(queues = DirectConfig.QUEUE_NAME)
     public void receiveMessage(String message) {
-        System.out.println("Direct Received <" + message + ">");
+        log.info("接收Direct模式消息：" + message);
     }
 }

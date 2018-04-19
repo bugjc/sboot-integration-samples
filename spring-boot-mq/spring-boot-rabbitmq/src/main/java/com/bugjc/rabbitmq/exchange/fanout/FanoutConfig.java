@@ -12,35 +12,35 @@ import org.springframework.context.annotation.Configuration;
  * 配置类
  * @author : aoki
  */
-//@Configuration
+@Configuration
 public class FanoutConfig {
 
-    public static final String TOPIC_EXCHANGE = "4140.AccnData";
-    public static final String ROUTING_KEY_1 = "*.AccnData";
-    public static final String ROUTING_KEY_2 = "#.AccnData";
+    public static final String TEST_FANOUT_EXCHANGE = "test.fanout";
+    public static final String INFO_LOG_QUEUE = "fanout.info.log";
+    public static final String ERROR_LOG_QUEUE = "fanout.error.log";
 
-    @Bean(name="message3")
-    public Queue queueMessage() {
-        return new Queue("4200.AccnData");
+    @Bean
+    public Queue fanoutInfoLogQueue() {
+        return new Queue(INFO_LOG_QUEUE);
     }
 
-    @Bean(name="message4")
-    public Queue queueMessage1() {
-        return new Queue("4300.AccnData");
+    @Bean
+    public Queue fanoutErrorLogQueue() {
+        return new Queue(ERROR_LOG_QUEUE);
     }
 
     @Bean
     public FanoutExchange fanoutExchange() {
-        return new FanoutExchange(TOPIC_EXCHANGE);
+        return new FanoutExchange(TEST_FANOUT_EXCHANGE);
     }
 
     @Bean
-    Binding bindingExchangeMessage(@Qualifier("message3") Queue queueMessage) {
-        return BindingBuilder.bind(queueMessage).to(fanoutExchange());
+    Binding bindingExchangeMessage(Queue fanoutInfoLogQueue) {
+        return BindingBuilder.bind(fanoutInfoLogQueue).to(fanoutExchange());
     }
 
     @Bean
-    Binding bindingExchangeMessage1(@Qualifier("message4") Queue queueMessage) {
-        return BindingBuilder.bind(queueMessage).to(fanoutExchange());
+    Binding bindingExchangeMessage1(Queue fanoutErrorLogQueue) {
+        return BindingBuilder.bind(fanoutErrorLogQueue).to(fanoutExchange());
     }
 }

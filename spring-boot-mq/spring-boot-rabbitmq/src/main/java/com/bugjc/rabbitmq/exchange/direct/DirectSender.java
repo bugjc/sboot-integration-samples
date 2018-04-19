@@ -1,21 +1,24 @@
 package com.bugjc.rabbitmq.exchange.direct;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 发送消息
  * @author : aoki
  */
-//@Service
+@Slf4j
+@Service
 public class DirectSender {
 	
     @Autowired
-    private AmqpTemplate rabbitTemplate;
+    private AmqpTemplate amqpTemplate;
     
-    public void send() {
-    	System.out.println("Direct模式使用示例");
-        rabbitTemplate.convertAndSend(DirectConfig.QUEUE_NAME, "你好， 青木!");
+    public void send(String messgae) {
+    	log.info("Direct模式使用示例");
+        amqpTemplate.convertAndSend(DirectConfig.QUEUE_NAME, messgae);
     }
     
 }

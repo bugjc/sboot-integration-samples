@@ -1,5 +1,6 @@
 package com.bugjc.rabbitmq.exchange.fanout;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
@@ -8,24 +9,25 @@ import org.springframework.stereotype.Service;
  * 接收消息
  * @author : aoki
  */
-//@Service
+@Slf4j
+@Service
 public class FanoutReceiver {
     /**
      * 监听器监听指定的Queue
      * @param str
      */
-    @RabbitListener(queues="4200.AccnData")
+    @RabbitListener(queues=FanoutConfig.INFO_LOG_QUEUE)
     public void process1(String str) {
-        System.out.println("Topic Received:"+str);
+        log.info("接收Fanout模式INFO.LOG队列消息："+str);
     }
 
     /**
      * 监听器监听指定的Queue
      * @param str
      */
-    @RabbitListener(queues="4300.AccnData")
+    @RabbitListener(queues=FanoutConfig.ERROR_LOG_QUEUE)
     public void process2(String str) {
-        System.out.println("Topic Received Wildcard :"+str);
+        log.info("接收Fanout模式ERROR.LOG队列消息："+str);
     }
 
 

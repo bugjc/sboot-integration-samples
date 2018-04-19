@@ -8,13 +8,13 @@ import org.springframework.context.annotation.Configuration;
  * 配置队列
  * @author : aoki
  */
-//@Configuration
+@Configuration
 public class DirectConfig {
 
-    public static final String QUEUE_NAME = "spring-boot-simple";
+    public static final String QUEUE_NAME = "direct.test";
 
     @Bean
-    public Queue queue() {
+    public Queue directTestQueue() {
         // 是否持久化
         boolean durable = true;
         // 仅创建者可以使用的私有队列，断开后自动删除

@@ -20,11 +20,11 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @EnableRabbit
 @Configuration
 public class AmqpConfig {
-    public static final String EXCHANGE = "spring.boot.direct";
-    public static final String ROUTINGKEY_FAIL = "spring.boot.routingKey.failure";
-    public static final String ROUTINGKEY = "spring.boot.routingKey";
-    public static final String QUEUE_NAME = "spring.demo";
-    public static final String QUEUE_NAME_FAIL = "spring.demo.failure";
+    public static final String EXCHANGE = "amqp.direct";
+    public static final String ROUTING_KEY_FAIL = "amqp.routingKey.failure";
+    public static final String ROUTING_KEY = "amqp.routingKey";
+    public static final String QUEUE_NAME = "amqp.demo";
+    public static final String QUEUE_NAME_FAIL = "amqp.demo.failure";
 
     //RabbitMQ的配置信息
     @Value("${spring.rabbitmq.host}")
@@ -42,8 +42,7 @@ public class AmqpConfig {
     //建立一个连接容器，类型数据库的连接池
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory(host, port);
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(host, port);
         connectionFactory.setUsername(username);
         connectionFactory.setPassword(password);
         connectionFactory.setVirtualHost(virtualHost);
@@ -68,11 +67,11 @@ public class AmqpConfig {
      * 针对消费者配置
      * FanoutExchange: 将消息分发到所有的绑定队列，无routingkey的概念
      * HeadersExchange ：通过添加属性key-value匹配
-     * DirectExchange:按照routingkey分发到指定队列
-     * TopicExchange:多关键字匹配
+     * DirectExchange: 按照routingkey分发到指定队列
+     * TopicExchange: 多关键字匹配
      */
     @Bean
-    public DirectExchange exchange() {
+    public DirectExchange directExchange() {
         return new DirectExchange(EXCHANGE);
     }
 
@@ -98,13 +97,13 @@ public class AmqpConfig {
      * @return
      */
     @Bean
-    public Binding binding(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue()).to(exchange()).with(AmqpConfig.ROUTINGKEY);
+    public Binding binding(Queue queue, DirectExchange directExchange) {
+        return BindingBuilder.bind(queue()).to(directExchange).with(AmqpConfig.ROUTING_KEY);
     }
 
     @Bean
-    public Binding bindingFail(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queueFail()).to(exchange()).with(AmqpConfig.ROUTINGKEY_FAIL);
+    public Binding bindingFail(Queue queue, DirectExchange directExchange) {
+        return BindingBuilder.bind(queueFail()).to(directExchange).with(AmqpConfig.ROUTING_KEY_FAIL);
     }
 
     @Bean

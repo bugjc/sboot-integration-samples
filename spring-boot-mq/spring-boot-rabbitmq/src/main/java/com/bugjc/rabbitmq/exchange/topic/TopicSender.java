@@ -1,21 +1,24 @@
 package com.bugjc.rabbitmq.exchange.topic;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 发送消息
  * @author : aoki
  */
-//@Service
+@Slf4j
+@Service
 public class TopicSender {
 	
     @Autowired
     private AmqpTemplate rabbitTemplate;
     
     public void send() {
-    	System.out.println("Topic转发模式使用示例");
-        rabbitTemplate.convertAndSend("exchange","topic.message", "你好， 青木!");
+    	log.info("Topic转发模式使用示例");
+        rabbitTemplate.convertAndSend(TopicConfig.TEST_TOPIC_EXCHANGE,"test.topic.a", "你好， 青木!");
     }
     
 }

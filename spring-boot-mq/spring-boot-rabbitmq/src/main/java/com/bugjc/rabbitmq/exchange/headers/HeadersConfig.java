@@ -12,12 +12,15 @@ import java.util.Map;
  * 配置类
  * @author : aoki
  */
-//@Configuration
+@Configuration
 public class HeadersConfig {
 
-    @Bean(name="message-a")
-    public Queue messageA() {
-        return new Queue("headers.a");
+    public static final String TEST_HEADERS_EXCHANGE = "test.headers";
+    public static final String TEST_HEADERS_A_QUEUE = "headers.a";
+
+    @Bean
+    public Queue headersA() {
+        return new Queue(TEST_HEADERS_A_QUEUE);
     }
 
     @Bean
@@ -35,11 +38,11 @@ public class HeadersConfig {
         headers.put("name", "jack");
         headers.put("age" , 31);
 
-        return new HeadersExchange("headersExchange",durable,autoDelete,headers);
+        return new HeadersExchange(TEST_HEADERS_EXCHANGE,durable,autoDelete,headers);
     }
 
     @Bean
-    BindingBuilder.HeadersExchangeMapConfigurer bindingExchangeA(@Qualifier("message-a") Queue messageA,HeadersExchange headersExchange) {
-        return BindingBuilder.bind(messageA).to(headersExchange);
+    BindingBuilder.HeadersExchangeMapConfigurer bindingExchangeA(Queue headersA,HeadersExchange headersExchange) {
+        return BindingBuilder.bind(headersA).to(headersExchange);
     }
 }

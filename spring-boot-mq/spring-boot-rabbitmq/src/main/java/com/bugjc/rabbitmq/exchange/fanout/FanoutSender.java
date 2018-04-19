@@ -1,5 +1,6 @@
 package com.bugjc.rabbitmq.exchange.fanout;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,15 +9,16 @@ import org.springframework.stereotype.Service;
  * 发送消息
  * @author : aoki
  */
-//@Service
+@Slf4j
+@Service
 public class FanoutSender {
 	
     @Autowired
     private AmqpTemplate rabbitTemplate;
     
     public void send(String msg) {
-        System.out.println("发送消息："+msg);
-        rabbitTemplate.convertAndSend(FanoutConfig.TOPIC_EXCHANGE, msg);
+        log.info("Fanout模式使用示例");
+        rabbitTemplate.convertAndSend(FanoutConfig.TEST_FANOUT_EXCHANGE, msg);
     }
     
 }
