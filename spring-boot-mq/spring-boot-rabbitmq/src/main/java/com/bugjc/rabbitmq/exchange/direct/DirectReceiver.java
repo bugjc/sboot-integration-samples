@@ -14,7 +14,12 @@ import org.springframework.stereotype.Service;
 public class DirectReceiver {
     
     @RabbitListener(queues = DirectConfig.QUEUE_NAME)
-    public void receiveMessage(String message) {
-        log.info("接收Direct模式消息：" + message);
+    public void consumerC1(String message) {
+        log.info("C1接收Direct模式消息：" + message);
+    }
+
+    @RabbitListener(queues = DirectConfig.QUEUE_NAME)
+    public void consumerC2(String message) {
+        log.info("C2接收Direct模式消息：" + message);
     }
 }

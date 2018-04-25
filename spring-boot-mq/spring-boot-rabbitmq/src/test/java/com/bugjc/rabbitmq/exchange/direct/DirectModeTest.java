@@ -17,6 +17,7 @@ public class DirectModeTest extends Tester {
 	@Test
 	public void send() throws Exception {
 	    String message = "你好！青木";
-		sender.send(message);
+		sender.sendMessage(message);
+		sender.sendMessage(message);
 	}
 }
