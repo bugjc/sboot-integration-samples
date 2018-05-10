@@ -1,6 +1,6 @@
 
 ### 二维码账户信息
-POST {{url}}/mock/11/upc/qrcode/account/info
+POST {{url}}/upc/qrcode/account/info
 Accept : application/json
 Content-Type : application/json;charset=UTF-8
 Authorization: Basic client secret
