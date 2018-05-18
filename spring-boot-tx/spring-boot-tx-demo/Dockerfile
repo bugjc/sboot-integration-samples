@@ -1,7 +1,6 @@
 FROM maven:3.5-jdk-8
 #registry.cn-hangzhou.aliyuncs.com/chainone/centos7-jdk8-maven3.3.9
 WORKDIR /app/spring-boot-tx
-RUN ls -ls && pwd
 COPY spring-boot-tx .
 COPY pom.xml /app
 ## 构建应用
