@@ -23,9 +23,10 @@ public class DES3VerifyController {
     public String rsaVerifySign(@RequestHeader("Key") String key,@RequestBody String json){
 
         try {
-            DESede des = SecureUtil.desede(Base64.decode(key));
+
+            DESede des = SecureUtil.desede(key.getBytes());
             JSONObject jsonObject = JSON.parseObject(json);
-            String decryptStr = des.decryptStr(jsonObject.getString("pwd"));
+            String decryptStr = des.decryptStr(Base64.decode(jsonObject.getString("pwd")));
             return "{\"msg\":\"解密字符串："+decryptStr+"\"}";
         }catch (Exception ex){
             return "{\"msg\":\"解密失败\"}";
