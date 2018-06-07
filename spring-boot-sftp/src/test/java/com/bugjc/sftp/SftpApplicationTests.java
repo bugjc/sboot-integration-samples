@@ -1,6 +1,6 @@
-package com.craftcoder.sftp;
+package com.bugjc.sftp;
 
-import com.craftcoder.sftp.service.SftpService;
+import com.bugjc.sftp.service.SftpService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.validation.constraints.AssertTrue;
 import java.io.File;
 
 @RunWith(SpringRunner.class)
@@ -19,15 +18,21 @@ public class SftpApplicationTests {
     private SftpService sftpService;
 
     @Test
+    public void listAllFile(){
+        sftpService.listAllFile("*");
+    }
+
+
+    @Test
     public void uploadFile() {
-        File file = new File("D:/temp/test.xml");
+        File file = new File("/Users/qingyang/Desktop/aoki/glcxw/upc-parent/README.md");
         sftpService.uploadFile(file);
-        Assert.assertTrue(sftpService.existFile("/upload/chai/sftp-file/test.xml"));
+        Assert.assertTrue(sftpService.existFile("/upload/README.md"));
     }
 
     @Test
     public void downLoadFile(){
-        File downloadFile = sftpService.downloadFile("/upload/chai/sftp-file/test.xml", "D:/temp/test.xml_download");
+        File downloadFile = sftpService.downloadFile("*_20180507.csv", "/Users/qingyang/Desktop/777.csv");
         Assert.assertTrue(downloadFile.exists());
     }
 
