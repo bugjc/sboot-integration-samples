@@ -8,8 +8,6 @@ import com.bugjc.jwt.core.shiro.jwt.JwtToken;
 import com.bugjc.jwt.core.util.TokenHelper;
 import com.bugjc.jwt.database.Service;
 import com.xiaoleilu.hutool.util.StrUtil;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.annotation.Logical;
@@ -26,8 +24,6 @@ import javax.annotation.Resource;
 
 @RestController
 public class UserController {
-
-    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
     private Service service;
     @Resource

@@ -61,7 +61,7 @@ public class LuckyDrawHandle implements Runnable{
             List<Integer> drawAwards = genDrawAwards(awardSink,globalProperty.luckyDramProbability);
             int index = RandomUtil.randomInt(0,drawAwards.size());
             if (drawAwards.get(index) == 0){
-                //log.info("用户"+userId+"未抽中奖品");
+                log.info("用户"+userId+"未抽中奖品");
                 drawRedisResult.setQueryResult(queryId,LogicError.ERROR_203,"未抽中奖品");
                 continue;
             }
@@ -81,7 +81,7 @@ public class LuckyDrawHandle implements Runnable{
     public static List<Integer> genDrawAwards(int award, int luckyDramProbability){
         String key = "DRAW_AWARDS";
         List<Integer> luckyDraw = MyCache.lfuCache.get(key);
-        if (!luckyDraw.isEmpty()){
+        if (luckyDraw != null){
             return luckyDraw;
         }
 

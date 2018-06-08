@@ -24,5 +24,6 @@ public class JwtServerApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         logger.info("服务启动完成!");
     }
+
 }
 
