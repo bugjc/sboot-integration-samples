@@ -91,6 +91,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.39</version>
         </dependency>
+        <!-- netty -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.22.Final</version>
+        </dependency>
 
     </dependencies>
 

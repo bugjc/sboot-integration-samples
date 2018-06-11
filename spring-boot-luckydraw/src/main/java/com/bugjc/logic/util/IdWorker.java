@@ -1,4 +1,4 @@
-package com.bugjc.util;
+package com.bugjc.logic.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

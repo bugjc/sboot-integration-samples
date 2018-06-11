@@ -1,4 +1,4 @@
-package com.bugjc.util.dto;
+package com.bugjc.logic.util.dto;
 
 import com.alibaba.fastjson.JSON;
 

@@ -1,4 +1,4 @@
-package com.bugjc.util.dto;
+package com.bugjc.logic.util.dto;
 
 /**
  * 响应码枚举，参考HTTP状态码的语义

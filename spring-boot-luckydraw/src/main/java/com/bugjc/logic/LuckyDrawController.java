@@ -1,7 +1,7 @@
 package com.bugjc.logic;
 
 import com.bugjc.logic.service.LogicService;
-import com.bugjc.util.dto.Result;
+import com.bugjc.logic.util.dto.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

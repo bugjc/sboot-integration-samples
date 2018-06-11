@@ -4,7 +4,7 @@ import cn.hutool.core.lang.Singleton;
 import com.alibaba.fastjson.JSONObject;
 import com.bugjc.grocery.AwardSinkAtomic;
 import com.bugjc.logic.service.AwardService;
-import com.bugjc.util.LuckyDrawQueueUtil;
+import com.bugjc.logic.util.LuckyDrawQueueUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

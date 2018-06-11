@@ -1,4 +1,4 @@
-package com.bugjc.grocery;
+package com.bugjc.grocery.service;
 
 /**
  * 全局计数

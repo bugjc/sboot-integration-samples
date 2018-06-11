@@ -2,7 +2,7 @@ package com.bugjc.logic;
 
 import cn.hutool.core.date.DateUnit;
 import com.bugjc.grocery.GlobalKeyConstants;
-import com.bugjc.util.dto.Result;
+import com.bugjc.logic.util.dto.Result;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 

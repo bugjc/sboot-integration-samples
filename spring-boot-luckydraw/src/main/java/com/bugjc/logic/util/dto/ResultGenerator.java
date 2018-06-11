@@ -1,4 +1,4 @@
-package com.bugjc.util.dto;
+package com.bugjc.logic.util.dto;
 
 /**
  * 响应结果生成工具

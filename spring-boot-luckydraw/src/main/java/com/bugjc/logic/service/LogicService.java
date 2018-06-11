@@ -1,6 +1,6 @@
 package com.bugjc.logic.service;
 
-import com.bugjc.util.dto.Result;
+import com.bugjc.logic.util.dto.Result;
 
 /**
  * @Auther: qingyang
