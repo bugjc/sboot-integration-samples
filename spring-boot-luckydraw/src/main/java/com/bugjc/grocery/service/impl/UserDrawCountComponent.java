@@ -2,6 +2,7 @@ package com.bugjc.grocery.service.impl;
 
 import com.bugjc.grocery.task.UserDrawCountTask;
 import com.bugjc.grocery.util.NettyTimerUtil;
+import com.bugjc.logic.util.MyCache;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 public class UserDrawCountComponent {
 
+    private static String totalKey = "user:draw:total";
     private static String keyPrefix = "user:draw:count:";
 
     @Resource
@@ -29,14 +31,20 @@ public class UserDrawCountComponent {
 
     /**
      * 初始化用户抽奖次数
+     * @param userId
      * @param total
      */
-    public void init(String userId,AtomicInteger total){
+    public void init(String userId,int total){
+        Integer userDrawTotal = MyCache.lfuCacheInteger.get(totalKey);
+        if (userDrawTotal == null){
+            MyCache.lfuCacheInteger.put(totalKey,total);
+        }
+
         AtomicInteger originalTotal = count.get(userId);
         if (originalTotal == null){
-            count.put(userId,total);
+            count.put(userId,new AtomicInteger(total));
             //1秒后同步用户抽奖计数
-            NettyTimerUtil.addTaskBySeconds(syncData(userId, String.valueOf(total.get())),1);
+            NettyTimerUtil.addTaskBySeconds(syncData(userId, String.valueOf(userDrawTotal)),1);
         }
         //TODO count对象只存热点用户或可抽奖的用户
     }
@@ -55,9 +63,17 @@ public class UserDrawCountComponent {
      * 清除用户抽奖次数
      * @param userId
      */
-    public static void clear(String userId){
+    public void clear(String userId){
         count.remove(userId);
     }
+
+    /**
+     * 删除抽奖次数缓存
+     */
+    public void removeCacheByUserDrawCount(){
+        MyCache.lfuCacheInteger.remove(totalKey);
+    }
+
 
     /**
      * 同步数据

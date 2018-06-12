@@ -1,13 +1,8 @@
 package com.bugjc.grocery.service.impl;
 
-import com.bugjc.grocery.GlobalKeyConstants;
 import com.bugjc.grocery.service.GlobalCountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Auther: qingyang
@@ -18,43 +13,32 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GlobalCountServiceImpl implements GlobalCountService {
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-    @Autowired
-    private RedisTemplate<String,Integer> redisTemplate;
-    @Autowired
     private UserDrawCountComponent userDrawCountComponent;
+    @Autowired
+    private AwardSinkComponent awardSinkComponent;
 
     @Override
     public int drawCount(boolean isDel) {
 
-        String key = GlobalKeyConstants.getActivityDrawCountKey();
         if (isDel){
-            redisTemplate.delete(key);
+            userDrawCountComponent.removeCacheByUserDrawCount();
         }
 
         Integer value = 10;//10次抽奖机会
-        Integer total = redisTemplate.opsForValue().getAndSet(key,value);
-        if (total == null){
-            total = value;
-        }
 
-        return total;
+        return value;
     }
 
     @Override
     public int awardSinkCount(boolean isDel) {
-        String key = GlobalKeyConstants.getActivityEverydayAwardTotalKey();
+
         if (isDel){
-            redisTemplate.delete(key);
+            awardSinkComponent.removeCacheByAwardSink();
         }
 
         Integer value = 200;//200个奖品
-        Integer total = redisTemplate.opsForValue().getAndSet(key,value);
-        if (total == null){
-            total = value;
-        }
-
-        return total;
+        AwardSinkComponent.init(value);
+        return value;
     }
 
     @Override
@@ -64,7 +48,7 @@ public class GlobalCountServiceImpl implements GlobalCountService {
 
     @Override
     public int everyDayUserDrawCountByUserId(String userId) {
-        userDrawCountComponent.init(userId,new AtomicInteger(this.drawCount(false)));
+        userDrawCountComponent.init(userId,this.drawCount(false));
         return userDrawCountComponent.decrementAndGet(userId);
     }
 }

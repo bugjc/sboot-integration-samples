@@ -2,7 +2,9 @@ package com.bugjc.logic.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.bugjc.grocery.service.impl.AwardSinkComponent;
 import com.bugjc.logic.service.AwardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,9 @@ import java.util.List;
  */
 @Service
 public class AwardServiceImpl implements AwardService {
+
+    @Autowired
+    private AwardSinkComponent awardSinkComponent;
 
     //奖品列表
     static List<JSONObject> list = new ArrayList(){{
@@ -39,6 +44,12 @@ public class AwardServiceImpl implements AwardService {
 
     @Override
     public JSONObject drawAward() {
+
+        int total = awardSinkComponent.decrementAndGet();
+        if (total <= 0){
+            return null;
+        }
+
         //随机抽奖，抽到即从奖品列表中移除
         List<JSONObject> awardList = this.findAwardList();
         if (awardList.isEmpty()){

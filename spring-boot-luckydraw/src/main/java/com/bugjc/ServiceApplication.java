@@ -2,6 +2,7 @@ package com.bugjc;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.bugjc.grocery.service.impl.AwardSinkComponent;
 import com.bugjc.logic.LssAwardHandle;
 import com.bugjc.logic.LuckyDrawHandle;
 import com.bugjc.logic.service.LogicService;
@@ -49,7 +50,7 @@ public class ServiceApplication implements CommandLineRunner {
         //测试程序
         List<String> list = new ArrayList<>();
         LogicService logicService = SpringContextHolder.getBean(LogicService.class);
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 200; i++) {
             Result result = logicService.luckyDraw(String.valueOf(i));
             if (result.getCode() == 200){
                 JSONObject data = (JSONObject) result.getData();
@@ -57,20 +58,23 @@ public class ServiceApplication implements CommandLineRunner {
             }
         }
 
-        while (true){
-            for (int i = 0; i < list.size(); i++) {
-                Result result = logicService.queryLuckDraw(list.get(i));
-                if (result.getCode() == 200){
-                    list.remove(i);
-                }
+        AwardSinkComponent awardSinkComponent = SpringContextHolder.getBean(AwardSinkComponent.class);
+        System.out.println("剩余奖金数量："+awardSinkComponent.getAwardSink());
 
-                if (result.getCode() == 1){
-                    continue;
-                }
-
-                log.info(result.toString());
-            }
-        }
+//        while (true){
+//            for (int i = 0; i < list.size(); i++) {
+//                Result result = logicService.queryLuckDraw(list.get(i));
+//                if (result.getCode() == 200){
+//                    list.remove(i);
+//                }
+//
+//                if (result.getCode() == 1){
+//                    continue;
+//                }
+//
+//                log.info(result.toString());
+//            }
+//        }
 
 
     }
