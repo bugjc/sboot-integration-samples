@@ -35,6 +35,9 @@ public class AwardServiceImpl implements AwardService {
         add(new JSONObject(){{
             put("awardName","10点积分");
         }});
+        add(new JSONObject(){{
+            put("awardName","20点积分");
+        }});
     }};
 
     @Override
@@ -46,7 +49,7 @@ public class AwardServiceImpl implements AwardService {
     public JSONObject drawAward() {
 
         int total = awardSinkComponent.decrementAndGet();
-        if (total <= 0){
+        if (total < 0){
             return null;
         }
 

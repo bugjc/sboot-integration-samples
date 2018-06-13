@@ -36,8 +36,8 @@ public class GlobalCountServiceImpl implements GlobalCountService {
             awardSinkComponent.removeCacheByAwardSink();
         }
 
-        Integer value = 200;//200个奖品
-        AwardSinkComponent.init(value);
+        Integer value = 5;//5个奖品
+        awardSinkComponent.init(value);
         return value;
     }
 

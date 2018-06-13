@@ -15,13 +15,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AwardSinkComponent {
 
     private static String awardSinkKey = "award:sink";
-    static AtomicInteger count = new AtomicInteger();
+    static AtomicInteger count = null;
 
     /**
      * 初始化奖品池
      * @param total
      */
-    public static void init(int total){
+    public void init(int total){
 
         Integer awardSinkTotal = MyCache.lfuCacheInteger.get(awardSinkKey);
         if (awardSinkTotal == null){
@@ -45,6 +45,9 @@ public class AwardSinkComponent {
      * 奖品池-1
      */
     public int decrementAndGet() {
+        if(count.get() <= 0){
+            return -1;
+        }
         return count.decrementAndGet();
     }
 

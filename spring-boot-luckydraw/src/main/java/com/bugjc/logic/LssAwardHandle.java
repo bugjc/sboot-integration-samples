@@ -48,6 +48,7 @@ public class LssAwardHandle implements Runnable{
             if (jsonObject == null){
                 log.info("奖品已被领完");
                 drawRedisResult.setQueryResult(queryId,LogicError.ERROR_202,"奖品已被领完");
+                continue;
             }
 
             log.info("用户"+userId+",抽到"+jsonObject.getString("awardName"));

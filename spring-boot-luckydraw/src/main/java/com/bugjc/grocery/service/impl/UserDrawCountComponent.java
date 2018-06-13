@@ -54,6 +54,10 @@ public class UserDrawCountComponent {
      */
     public int decrementAndGet(String userId) {
         AtomicInteger total = count.get(userId);
+        if (total.get() <= 0){
+            return -1;
+        }
+
         int number = total.decrementAndGet();
         syncData(userId, String.valueOf(number));
         return number;
