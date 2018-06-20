@@ -31,13 +31,13 @@ public class DirectConfig {
         return new Queue(QUEUE_NAME,durable,exclusive,autoDelete);
     }
 
-    @Bean
-    public ConnectionFactory channel(ConnectionFactory connectionFactory) throws IOException, TimeoutException {
-        Connection connection = connectionFactory.newConnection();
-        Channel channel = connection.createChannel();
-        channel.basicQos(1);
-        return connectionFactory;
-    }
+//    @Bean
+//    public ConnectionFactory channel(ConnectionFactory connectionFactory) throws IOException, TimeoutException {
+//        Connection connection = connectionFactory.newConnection();
+//        Channel channel = connection.createChannel();
+//        channel.basicQos(1);
+//        return connectionFactory;
+//    }
 
     @Bean
     public DirectExchange directExchange() {

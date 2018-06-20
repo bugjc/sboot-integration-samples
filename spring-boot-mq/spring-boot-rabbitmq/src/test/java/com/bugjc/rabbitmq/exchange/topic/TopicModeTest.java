@@ -11,14 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TopicModeTest extends Tester {
     
-//	@Autowired
-//	private TopicSender sender;
+	@Autowired
+	private TopicSender sender;
 
 	@Test(timeout = 10000)
 	public void send() throws Exception {
+
+		String routingKey = "test.topic.info.log";
+		sender.send(routingKey);
+
+		Thread.sleep(2000);
 //		while (true){
 //			sender.send();
 //		}
-
 	}
 }

@@ -16,9 +16,9 @@ public class TopicSender {
     @Autowired
     private AmqpTemplate rabbitTemplate;
     
-    public void send() {
+    public void send(String routingKey) {
     	log.info("Topic转发模式使用示例");
-        rabbitTemplate.convertAndSend(TopicConfig.TEST_TOPIC_EXCHANGE,"test.topic.a", "你好， 青木!");
+        rabbitTemplate.convertAndSend(TopicConfig.TEST_TOPIC_EXCHANGE,routingKey, "你好， 青木!");
     }
     
 }
