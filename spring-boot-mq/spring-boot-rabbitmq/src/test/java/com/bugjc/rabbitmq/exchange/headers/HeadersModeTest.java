@@ -1,9 +1,8 @@
 package com.bugjc.rabbitmq.exchange.headers;
 
 
-import com.bugjc.rabbitmq.exchange.Tester;
+import com.bugjc.rabbitmq.Tester;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 测试
