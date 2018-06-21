@@ -78,7 +78,7 @@ public class LuckyDrawTest {
 
 
     public static void main(String[] args) throws InterruptedException {
-        final int N = 2000;
+        final int N = 1000;
         Thread[] allSoldier = new Thread[N];
         boolean flag = false;
         CyclicBarrier cyclic = new CyclicBarrier(N, new BarrierRun(flag, N));
@@ -92,10 +92,10 @@ public class LuckyDrawTest {
 
 
         Thread.sleep(10000);
-        queryResult.keySet().forEach( v -> {
-            String resultJson = HttpUtil.createGet("http://127.0.0.1:8002/lucky/draw/query/"+v).execute().body();
-            System.out.println("查询结果："+resultJson);
-        });
+//        queryResult.keySet().forEach( v -> {
+//            String resultJson = HttpUtil.createGet("http://127.0.0.1:8002/lucky/draw/query/"+v).execute().body();
+//            System.out.println("查询结果："+resultJson);
+//        });
 
 
     }

@@ -1,13 +1,9 @@
 package com.bugjc.grocery.task;
 
-import com.bugjc.grocery.util.DataTimeUtil;
 import io.netty.util.Timeout;
 import io.netty.util.TimerTask;
 import lombok.Data;
 import org.springframework.data.redis.core.StringRedisTemplate;
-
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther: qingyang
@@ -29,6 +25,6 @@ public class UserDrawCountTask implements TimerTask {
     @Override
     public void run(Timeout timeout) throws Exception {
         //同步计数并隔天失效
-        stringRedisTemplate.opsForValue().set(getKey(), getValue(), DataTimeUtil.getRemainSecondsOneDay(new Date()),TimeUnit.SECONDS);
+        //stringRedisTemplate.opsForValue().set(getKey(), getValue(), DataTimeUtil.getRemainSecondsOneDay(new Date()),TimeUnit.SECONDS);
     }
 }

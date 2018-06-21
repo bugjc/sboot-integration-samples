@@ -1,11 +1,14 @@
 package com.bugjc.logic.config;
 
+import com.bugjc.logic.util.Redis.RedisObjectSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
@@ -63,10 +66,10 @@ public class RedisConfig<T> {
     public RedisTemplate<String, T> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, T> template = new RedisTemplate<String, T>();
         template.setConnectionFactory(factory);
-//		template.setKeySerializer(new StringRedisSerializer());
-//		template.setValueSerializer(new JdkSerializationRedisSerializer());
-//		template.setValueSerializer(new RedisObjectSerializer());
-//		template.afterPropertiesSet();
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new JdkSerializationRedisSerializer());
+		template.setValueSerializer(new RedisObjectSerializer());
+		template.afterPropertiesSet();
         return template;
     }
 }
