@@ -1,4 +1,4 @@
-package com.bugjc.rabbitmq.exchange;
+package com.bugjc.rabbitmq;
 
 
 import com.bugjc.RabbitMQApplication;
