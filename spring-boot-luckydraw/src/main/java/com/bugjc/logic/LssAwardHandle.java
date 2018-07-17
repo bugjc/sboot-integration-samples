@@ -5,8 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.bugjc.logic.service.AwardService;
 import com.bugjc.logic.util.LuckyDrawQueueUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * 中奖处理
@@ -18,9 +19,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class LssAwardHandle implements Runnable{
 
-    @Autowired
+    @Resource
     private AwardService awardService;
-    @Autowired
+    @Resource
     private DrawRedisResult drawRedisResult;
 
     @Override

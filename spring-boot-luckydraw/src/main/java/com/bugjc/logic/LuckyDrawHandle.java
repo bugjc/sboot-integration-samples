@@ -8,9 +8,9 @@ import com.bugjc.logic.config.GlobalProperty;
 import com.bugjc.logic.util.LuckyDrawQueueUtil;
 import com.bugjc.logic.util.MyCache;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +24,11 @@ import java.util.List;
 @Component
 public class LuckyDrawHandle implements Runnable{
 
-    @Autowired
+    @Resource
     private GlobalCountService globalCountService;
-    @Autowired
+    @Resource
     private GlobalProperty globalProperty;
-    @Autowired
+    @Resource
     private DrawRedisResult drawRedisResult;
 
     @Override

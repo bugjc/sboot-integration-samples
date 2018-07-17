@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 应用入口
@@ -30,10 +31,13 @@ public class ServiceApplication implements CommandLineRunner {
         SpringApplication.run(ServiceApplication.class, args);
     }
 
-    @GetMapping(value = "/")
-    @ResponseBody
-    public String index() {
-        return "test";
+    @RestController
+    private class TestApi{
+        @GetMapping(value = "/test")
+        @ResponseBody
+        public String index() {
+            return "test";
+        }
     }
 
     @Override

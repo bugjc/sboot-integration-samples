@@ -41,3 +41,4 @@ public class DrawRedisResult {
         return stringRedisTemplate.opsForValue().get(key);
     }
 }
+

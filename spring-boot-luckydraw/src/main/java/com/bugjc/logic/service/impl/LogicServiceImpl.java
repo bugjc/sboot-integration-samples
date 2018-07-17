@@ -9,7 +9,6 @@ import com.bugjc.logic.util.IdWorker;
 import com.bugjc.logic.util.LuckyDrawQueueUtil;
 import com.bugjc.logic.util.dto.Result;
 import com.bugjc.logic.util.dto.ResultGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class LogicServiceImpl implements LogicService {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
-    @Autowired
+    @Resource
     private DrawRedisResult drawRedisResult;
 
     @Override

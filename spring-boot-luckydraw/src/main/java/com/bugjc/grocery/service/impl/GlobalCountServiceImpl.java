@@ -1,8 +1,9 @@
 package com.bugjc.grocery.service.impl;
 
 import com.bugjc.grocery.service.GlobalCountService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @Auther: qingyang
@@ -12,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class GlobalCountServiceImpl implements GlobalCountService {
 
-    @Autowired
+    @Resource
     private UserDrawCountComponent userDrawCountComponent;
-    @Autowired
+    @Resource
     private AwardSinkComponent awardSinkComponent;
 
     @Override

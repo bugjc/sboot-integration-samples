@@ -4,9 +4,9 @@ import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.bugjc.grocery.service.impl.AwardSinkComponent;
 import com.bugjc.logic.service.AwardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class AwardServiceImpl implements AwardService {
 
-    @Autowired
+    @Resource
     private AwardSinkComponent awardSinkComponent;
 
     //奖品列表
