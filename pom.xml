@@ -35,6 +35,20 @@
         <spring-cloud.version>Dalston.SR4</spring-cloud.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot (依赖管理：继承一些默认的依赖，工程需要依赖的jar包的管理，申明其他dependency的时候就不需要version) -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
@@ -65,7 +79,11 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <encoding>UTF8</encoding>
+                    <meminitial>512m</meminitial>
+                    <maxmem>1048m</maxmem>
+                    <fork>true</fork>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgument>-verbose -bootclasspath ${java.home}\lib\rt.jar</compilerArgument>
                 </configuration>
             </plugin>
 
