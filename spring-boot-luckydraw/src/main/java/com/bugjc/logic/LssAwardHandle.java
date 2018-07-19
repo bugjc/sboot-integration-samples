@@ -26,7 +26,7 @@ public class LssAwardHandle implements Runnable{
 
     @Override
     public void run() {
-        log.info("------中奖处理工作线程------");
+        log.info("------中奖工作线程:"+Thread.currentThread().getName()+"------"+this);
         LuckyDrawQueueUtil luckyDrawQueueUtil = Singleton.get(LuckyDrawQueueUtil.class);
 
         while (true){

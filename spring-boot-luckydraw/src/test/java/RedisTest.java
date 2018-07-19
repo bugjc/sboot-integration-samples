@@ -1,5 +1,6 @@
-import com.bugjc.ServiceApplication;
+import com.bugjc.LuckyDrawApplication;
 import com.bugjc.logic.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,11 +21,8 @@ import java.util.stream.IntStream;
  * @Date: 2018/7/18 22:55
  * @Description:
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceApplication.class)
-public class RedisApplicationTest {
-
-    private static final Logger log = LoggerFactory.getLogger(RedisApplicationTest.class);
+@Slf4j
+public class RedisTest extends Tester{
 
 
     @Autowired
@@ -36,18 +34,20 @@ public class RedisApplicationTest {
 
     @Test
     public void get() {
-        // TODO 测试线程安全
+
         ExecutorService executorService = Executors.newFixedThreadPool(1000);
         IntStream.range(0, 1000).forEach(i ->
                 executorService.execute(() -> stringRedisTemplate.opsForValue().increment("kk", 1))
         );
+
         stringRedisTemplate.opsForValue().set("k1", "v1");
+
         final String k1 = stringRedisTemplate.opsForValue().get("k1");
         log.info("[字符缓存结果] - [{}]", k1);
-        // TODO 以下只演示整合，具体Redis命令可以参考官方文档，Spring Data Redis 只是改了个名字而已，Redis支持的命令它都支持
+
         String key = "battcn:user:1";
         redisCacheTemplate.opsForValue().set(key, new User(1L, "u1", "pa"));
-        // TODO 对应 String（字符串）
+
         final User user = (User) redisCacheTemplate.opsForValue().get(key);
         log.info("[对象缓存结果] - [{}]", user);
     }

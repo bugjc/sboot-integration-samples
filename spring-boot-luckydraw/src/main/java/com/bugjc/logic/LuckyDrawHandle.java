@@ -8,6 +8,7 @@ import com.bugjc.logic.config.GlobalProperty;
 import com.bugjc.logic.util.LuckyDrawQueueUtil;
 import com.bugjc.logic.util.MyCache;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -21,6 +22,7 @@ import java.util.List;
  * @Description:
  */
 @Slf4j
+@Scope("prototype")
 @Component
 public class LuckyDrawHandle implements Runnable{
 
@@ -33,7 +35,7 @@ public class LuckyDrawHandle implements Runnable{
 
     @Override
     public void run() {
-        log.info("------抽奖处理工作线程------");
+        log.info("------抽奖工作线程:"+Thread.currentThread().getName()+"------"+this);
         LuckyDrawQueueUtil luckyDrawQueueUtil = Singleton.get(LuckyDrawQueueUtil.class);
 
         while (true){

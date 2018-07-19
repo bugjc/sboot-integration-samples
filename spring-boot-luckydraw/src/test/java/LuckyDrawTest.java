@@ -2,25 +2,30 @@ import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import event.EventListener;
+import event.EventObject;
+import event.EventSource;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
+@Slf4j
 public class LuckyDrawTest {
-
-    private static JSONObject queryResult = new JSONObject();
 
     public static class Soldier implements Runnable {
         private String soldier;
         private final CyclicBarrier cyclic;
         private String userId;
+        private EventSource eventSource;
 
-        public Soldier(CyclicBarrier cyclic, String soldier,String userId) {
+        public Soldier(CyclicBarrier cyclic, String soldier,String userId,EventSource eventSource) {
             this.soldier = soldier;
             this.cyclic = cyclic;
             this.userId = userId;
+            this.eventSource = eventSource;
         }
 
         @Override
@@ -28,7 +33,7 @@ public class LuckyDrawTest {
             try {
                 //等待所有士兵到齐
                 cyclic.await();
-                doWork();
+                doWork(eventSource);
                 //等待所有士兵完成工作
                 cyclic.await();
             } catch (InterruptedException | BrokenBarrierException e) {//在等待过程中,线程被中断
@@ -36,41 +41,44 @@ public class LuckyDrawTest {
             }
         }
 
-        void doWork() {
+        void doWork(EventSource eventSource) {
             try {
-                long startTime = System.currentTimeMillis();
-                //Thread.sleep(Math.abs(new Random().nextInt() % 10000));
-                Map<String,Object> paramMap = new HashMap<>();
-                paramMap.put("userId",userId);
-                HttpResponse httpResponse = HttpUtil.createPost("http://127.0.0.1:8002/lucky/draw").form(paramMap).execute();
+                HttpResponse httpResponse = HttpUtil.createGet("http://127.0.0.1:8002/lucky/draw/"+userId).execute();
                 JSONObject jsonObject = JSON.parseObject(httpResponse.body());
                 JSONObject data = jsonObject.getJSONObject("data");
-                queryResult.put(data.getString("queryId"),data.getString("queryId"));
-                System.out.println(httpResponse.body());
-                System.out.println((System.currentTimeMillis() - startTime));
+
+                eventSource.addListener(new EventListener() {
+                    @Override
+                    public void handleEvent(EventObject dm) {
+                        String resultJson = HttpUtil.createGet("http://127.0.0.1:8002/lucky/draw/query/"+data.getString("queryId")).execute().body();
+                        System.out.println("查询结果："+resultJson);
+                    }
+                });
+
+                eventSource.notifyEvent();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println(soldier + ":任务完成");
+            log.info(soldier + ":任务完成");
         }
 
     }
 
     public static class BarrierRun implements Runnable {
         boolean flag;
-        int N;
+        int number;
 
-        public BarrierRun(boolean flag, int N) {
+        public BarrierRun(boolean flag, int number) {
             this.flag = flag;
-            this.N = N;
+            this.number = number;
         }
 
         @Override
         public void run() {
             if (flag) {
-                System.out.println("司令:[士兵" + N + "个,任务完成!]");
+                log.info("司令:[士兵" + number + "个,任务完成!]");
             } else {
-                System.out.println("司令:[士兵" + N + "个,集合完毕!]");
+                log.info("司令:[士兵" + number + "个,集合完毕!]");
                 flag = true;
             }
         }
@@ -78,25 +86,22 @@ public class LuckyDrawTest {
 
 
     public static void main(String[] args) throws InterruptedException {
-        final int N = 1000;
-        Thread[] allSoldier = new Thread[N];
-        boolean flag = false;
-        CyclicBarrier cyclic = new CyclicBarrier(N, new BarrierRun(flag, N));
+
+        //定义事件源
+        EventSource eventSource = new EventSource();
+
+        final int number = 1000;
+        Thread[] allSoldier = new Thread[number];
+        CyclicBarrier cyclic = new CyclicBarrier(number, new BarrierRun(false, number));
         //设置屏障点,主要为了执行这个方法
-        System.out.println("集合队伍! ");
-        for (int i = 0; i < N; i++) {
-            System.out.println("士兵" + i + "报道! ");
-            allSoldier[i] = new Thread(new Soldier(cyclic, "士兵" + i,i+""));
+        log.info("集合队伍! ");
+        for (int i = 0; i < number; i++) {
+            log.info("士兵" + i + "报道! ");
+            allSoldier[i] = new Thread(new Soldier(cyclic, "士兵" + i,i+"",eventSource));
             allSoldier[i].start();
         }
 
-
-        Thread.sleep(10000);
-//        queryResult.keySet().forEach( v -> {
-//            String resultJson = HttpUtil.createGet("http://127.0.0.1:8002/lucky/draw/query/"+v).execute().body();
-//            System.out.println("查询结果："+resultJson);
-//        });
-
+        Thread.sleep(100000);
 
     }
 
