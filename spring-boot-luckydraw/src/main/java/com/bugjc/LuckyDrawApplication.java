@@ -50,24 +50,6 @@ public class LuckyDrawApplication implements CommandLineRunner {
         lssAwardsThreadA.start();
         log.info("中奖工作线程启动成功！");
 
-        //测试程序
-//        AwardSinkComponent awardSinkComponent = SpringContextHolder.getBean(AwardSinkComponent.class);
-//        LogicService logicService = SpringContextHolder.getBean(LogicService.class);
-//        for (int i = 0; i < 2000; i++) {
-//            Result result = logicService.luckyDraw(String.valueOf(i));
-//            if (result.getCode() == 200){
-//                JSONObject data = (JSONObject) result.getData();
-//                NettyTimerUtil.addTaskBySeconds(new TimerTask() {
-//                    @Override
-//                    public void run(Timeout timeout) throws Exception {
-//                        Result result1 = logicService.queryLuckDraw(data.getString("queryId"));
-//                        log.info(result1.toString());
-//                        log.info("剩余奖金数量："+awardSinkComponent.getAwardSink());
-//                    }
-//                },1);
-//            }
-//        }
-
     }
 }
 
