@@ -12,8 +12,8 @@ import com.bugjc.jwt.core.exception.ServiceException;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthorizedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.logger;
+import org.slf4j.loggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -38,7 +38,7 @@ import java.util.List;
 @Configuration
 public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
-    private final Logger logger = LoggerFactory.getLogger(WebMvcConfigurer.class);
+    private final logger logger = loggerFactory.getlogger(WebMvcConfigurer.class);
     //当前激活的配置文件
     @Value("${spring.profiles.active}")
     private String env;

@@ -1,46 +1,68 @@
 package com.bugjc.rabbitmq.rpc.core.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-@Component
-public class SpringContextUtil implements ApplicationContextAware {
+/**
+ * 利用静态内部类初始化ApplicationContext对象
+ * @author aoki
+ */
+@Slf4j
+public class SpringContextUtil{
 
-    private static ApplicationContext applicationContext;
+    private static ApplicationContext context = null;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringContextUtil.applicationContext = applicationContext;
-    }
 
     public static ApplicationContext getApplicationContext() {
-        return applicationContext;
+        return context;
     }
 
-    public static Object getBean(String name) throws BeansException {
-        return applicationContext.getBean(name);
+    private static void setApplicationContext(ApplicationContext applicationContext) {
+        context = applicationContext;
+    }
+
+
+    static Object getBean(String name) throws BeansException {
+        return context.getBean(name);
     }
 
     public static <T> T getBean(String name, Class<T> requiredType) throws BeansException {
-        return (T) applicationContext.getBean(name, requiredType);
+        return (T) context.getBean(name, requiredType);
     }
 
     public static boolean containsBean(String name) {
-        return applicationContext.containsBean(name);
+        return context.containsBean(name);
     }
 
     public static boolean isSingleton(String name) throws NoSuchBeanDefinitionException {
-        return applicationContext.isSingleton(name);
+        return context.isSingleton(name);
     }
 
     public static Class<?> getType(String name) throws NoSuchBeanDefinitionException {
-        return applicationContext.getType(name);
+        return context.getType(name);
     }
 
     public static String[] getAliases(String name) throws NoSuchBeanDefinitionException {
-        return applicationContext.getAliases(name);
+        return context.getAliases(name);
     }
+
+    @Component
+    static class MyApplicationContext implements ApplicationContextAware {
+        @Override
+        public synchronized void setApplicationContext(ApplicationContext applicationContextAware) throws BeansException {
+            log.info("设置ApplicationContext");
+            SpringContextUtil.setApplicationContext(applicationContextAware);
+            this.log();
+        }
+
+        public void log(){
+            log.info("设置ApplicationContext成功！");
+        }
+
+    }
+
 }

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bugjc.tx.configurer.TxConfigurer;
 import com.bugjc.tx.constant.TransactionContextHolder;
 import com.bugjc.tx.exception.TransactionException;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -18,9 +18,9 @@ import java.util.Stack;
  * @author aoki
  * @create 2018-03-21
  */
+@Slf4j
 public class TransactionGroupAspect {
 
-    private Logger log = Logger.getLogger(getClass());
     @Resource
     private TxConfigurer txConfigurer;
 

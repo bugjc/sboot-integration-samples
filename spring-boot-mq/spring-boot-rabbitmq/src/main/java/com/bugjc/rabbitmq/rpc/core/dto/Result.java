@@ -12,7 +12,7 @@ public class Result {
     private Object data;
 
     public Result setCode(ResultCode resultCode) {
-        this.code = resultCode.code;
+        this.code = resultCode.getCode();
         return this;
     }
 

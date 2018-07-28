@@ -1,8 +1,8 @@
 package com.bugjc.jwt;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.logger;
+import org.slf4j.loggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JwtServerApplication implements CommandLineRunner {
 
-    private Logger logger = LoggerFactory.getLogger(JwtServerApplication.class);
+    private logger logger = loggerFactory.getlogger(JwtServerApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(JwtServerApplication.class, args);

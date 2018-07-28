@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bugjc.tx.configurer.TxConfigurer;
 import com.bugjc.tx.constant.TransactionContextHolder;
 import com.bugjc.tx.util.TransactionRuleUtil;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -21,9 +21,9 @@ import java.util.Stack;
  * 开启一个新的事务并追加到事务组对象
  * @author aoki
  */
+@Slf4j
 public class TransactionObjectAspect {
 
-    private Logger log = Logger.getLogger(getClass());
     @Resource
     private TxConfigurer txConfigurer;
     @Resource
@@ -89,7 +89,7 @@ public class TransactionObjectAspect {
             Object obj = pjp.proceed();
             return obj;
         }catch(Exception ex) {
-            log.debug(ex);
+            log.debug(ex.getMessage(),ex);
             throw ex;
         }
     }

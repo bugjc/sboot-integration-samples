@@ -1,8 +1,8 @@
 package com.bugjc.tx;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.logger;
+import org.slf4j.loggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 /*@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})*/
 public class RedisServiceApplication implements CommandLineRunner {
 
-    private Logger logger = LoggerFactory.getLogger(RedisServiceApplication.class);
+    private logger logger = loggerFactory.getlogger(RedisServiceApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(RedisServiceApplication.class, args);

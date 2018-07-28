@@ -10,7 +10,7 @@ import com.bugjc.jwt.database.Service;
 import com.xiaoleilu.hutool.util.StrUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -100,7 +100,7 @@ public class UserController {
     }
 
     @GetMapping("/annotation/require_permission")
-    @RequiresPermissions(logical = Logical.AND, value = {"view", "edit"})
+    @RequiresPermissions(logical = logical.AND, value = {"view", "edit"})
     public Result annotationView3() {
         return ResultGenerator.genSuccessResult("You are visiting permission require edit,view");
     }

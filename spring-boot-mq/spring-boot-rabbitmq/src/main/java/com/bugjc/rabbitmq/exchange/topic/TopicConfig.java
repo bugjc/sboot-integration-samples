@@ -16,23 +16,23 @@ import org.springframework.context.annotation.Configuration;
 public class TopicConfig {
 
     public static final String TEST_TOPIC_EXCHANGE = "test.topic";
-    public static final String INFO_LOG_QUEUE = "test.topic.info.log";
-    public static final String ERROR_LOG_QUEUE = "test.topic.error.log";
-    public static final String DEBUG_LOG_QUEUE = "test.topic.debug.log";
+    public static final String INFO_log_QUEUE = "test.topic.info.log";
+    public static final String ERROR_log_QUEUE = "test.topic.error.log";
+    public static final String DEBUG_log_QUEUE = "test.topic.debug.log";
 
     @Bean
-    public Queue topicInfoLogQueue() {
-        return new Queue(INFO_LOG_QUEUE);
+    public Queue topicInfologQueue() {
+        return new Queue(INFO_log_QUEUE);
     }
 
     @Bean
-    public Queue topicErrorLogQueue() {
-        return new Queue(ERROR_LOG_QUEUE);
+    public Queue topicErrorlogQueue() {
+        return new Queue(ERROR_log_QUEUE);
     }
 
     @Bean
-    public Queue topicDebugLogQueue() {
-        return new Queue(DEBUG_LOG_QUEUE);
+    public Queue topicDebuglogQueue() {
+        return new Queue(DEBUG_log_QUEUE);
     }
 
     @Bean
@@ -41,19 +41,19 @@ public class TopicConfig {
     }
 
     @Bean
-    Binding bindingExchangeMessage(Queue topicInfoLogQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(topicInfoLogQueue).to(exchange).with("test.topic.info.*");
+    Binding bindingExchangeMessage(Queue topicInfologQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(topicInfologQueue).to(exchange).with("test.topic.info.*");
     }
 
     @Bean
-    Binding bindingExchangeMessages(Queue topicErrorLogQueue, TopicExchange exchange) {
+    Binding bindingExchangeMessages(Queue topicErrorlogQueue, TopicExchange exchange) {
         //*表示一个词,#表示零个或多个词
-        return BindingBuilder.bind(topicErrorLogQueue).to(exchange).with("test.topic.error.#");
+        return BindingBuilder.bind(topicErrorlogQueue).to(exchange).with("test.topic.error.#");
     }
 
     @Bean
-    Binding debugBindingExchangeMessages(Queue topicDebugLogQueue, TopicExchange exchange) {
+    Binding debugBindingExchangeMessages(Queue topicDebuglogQueue, TopicExchange exchange) {
         //*表示一个词,#表示零个或多个词
-        return BindingBuilder.bind(topicDebugLogQueue).to(exchange).with("test.topic.debug.#");
+        return BindingBuilder.bind(topicDebuglogQueue).to(exchange).with("test.topic.debug.#");
     }
 }

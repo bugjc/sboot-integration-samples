@@ -1,14 +1,12 @@
 package com.bugjc.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.CountDownLatch;
 
+@Slf4j
 public class Receiver {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
 
     private CountDownLatch latch;
 
@@ -18,7 +16,7 @@ public class Receiver {
     }
 
     public void receiveMessage(String message) {
-        LOGGER.info("Received <" + message + ">");
+        log.info("Received <" + message + ">");
         latch.countDown();
     }
 }

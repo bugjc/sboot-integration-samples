@@ -39,17 +39,17 @@ public class JwtFilter extends AuthenticatingFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        return executeLogin(request, response);
+        return executelogin(request, response);
     }
 
     @Override
-    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request,
+    protected boolean onloginSuccess(AuthenticationToken token, Subject subject, ServletRequest request,
                                      ServletResponse response) throws Exception {
         return true;
     }
 
     @Override
-    protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException ae, ServletRequest request,
+    protected boolean onloginFailure(AuthenticationToken token, AuthenticationException ae, ServletRequest request,
                                      ServletResponse response) {
         HttpServletResponse servletResponse = (HttpServletResponse) response;
 

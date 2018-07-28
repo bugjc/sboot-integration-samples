@@ -1,13 +1,12 @@
 package com.bugjc.tx.core.ds;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +18,11 @@ import java.lang.reflect.Method;
  * @author yangqing
  * @create 2016年11月30日
  */
+@Slf4j
 @Aspect
 @Order(-1)
 @Component
 public class DynamicDataSourceAspect {
-
-    private static final Logger logger = LoggerFactory.getLogger(DynamicDataSourceAspect.class);
 
 
     @Pointcut("execution(* com.bugjc.tx.dao..*.*(..))")
@@ -35,7 +33,7 @@ public class DynamicDataSourceAspect {
 
         Object target = point.getTarget();
         String method = point.getSignature().getName();
-        logger.debug(method);
+        log.debug(method);
         Class<?>[] classz = target.getClass().getInterfaces();
         Class<?>[] parameterTypes = ((MethodSignature) point.getSignature()).getMethod().getParameterTypes();
 

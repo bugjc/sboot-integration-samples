@@ -16,17 +16,17 @@ import org.springframework.context.annotation.Configuration;
 public class FanoutConfig {
 
     public static final String TEST_FANOUT_EXCHANGE = "test.fanout";
-    public static final String INFO_LOG_QUEUE = "fanout.info.log";
-    public static final String ERROR_LOG_QUEUE = "fanout.error.log";
+    public static final String INFO_log_QUEUE = "fanout.info.log";
+    public static final String ERROR_log_QUEUE = "fanout.error.log";
 
     @Bean
-    public Queue fanoutInfoLogQueue() {
-        return new Queue(INFO_LOG_QUEUE);
+    public Queue fanoutInfologQueue() {
+        return new Queue(INFO_log_QUEUE);
     }
 
     @Bean
-    public Queue fanoutErrorLogQueue() {
-        return new Queue(ERROR_LOG_QUEUE);
+    public Queue fanoutErrorlogQueue() {
+        return new Queue(ERROR_log_QUEUE);
     }
 
     @Bean
@@ -35,12 +35,12 @@ public class FanoutConfig {
     }
 
     @Bean
-    Binding bindingExchangeMessage(Queue fanoutInfoLogQueue) {
-        return BindingBuilder.bind(fanoutInfoLogQueue).to(fanoutExchange());
+    Binding bindingExchangeMessage(Queue fanoutInfologQueue) {
+        return BindingBuilder.bind(fanoutInfologQueue).to(fanoutExchange());
     }
 
     @Bean
-    Binding bindingExchangeMessage1(Queue fanoutErrorLogQueue) {
-        return BindingBuilder.bind(fanoutErrorLogQueue).to(fanoutExchange());
+    Binding bindingExchangeMessage1(Queue fanoutErrorlogQueue) {
+        return BindingBuilder.bind(fanoutErrorlogQueue).to(fanoutExchange());
     }
 }
