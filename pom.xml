@@ -5,25 +5,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bugjc</groupId>
-    <artifactId>spring-boot-example</artifactId>
+    <artifactId>sboot-integration-samples</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 
 
     <modules>
-        <module>spring-boot-custom-starter</module>
-        <module>spring-boot-swagger</module>
-        <module>spring-boot-redis</module>
-        <module>spring-boot-mq</module>
-        <module>spring-boot-jwt</module>
-        <module>spring-boot-rest</module>
-        <module>spring-boot-flywaydb</module>
-        <module>spring-boot-tx</module>
-        <module>spring-boot-admin</module>
-        <module>spring-boot-sftp</module>
-        <module>spring-boot-webflux</module>
-        <module>spring-boot-encrypt</module>
-        <module>spring-boot-luckydraw</module>
+        <module>sboot-integration-custom-starter</module>
+        <module>sboot-integration-swagger</module>
+        <module>sboot-integration-redis</module>
+        <module>sboot-integration-mq</module>
+        <module>sboot-integration-jwt</module>
+        <module>sboot-integration-rest</module>
+        <module>sboot-integration-flywaydb</module>
+        <module>sboot-integration-tx</module>
+        <module>sboot-integration-admin</module>
+        <module>sboot-integration-sftp</module>
+        <module>sboot-integration-webflux</module>
+        <module>sboot-integration-encrypt</module>
+        <module>sboot-integration-luckydraw</module>
+        <module>shoot-integration-jetcache</module>
     </modules>
 
 
@@ -83,7 +84,6 @@
                     <maxmem>1048m</maxmem>
                     <fork>true</fork>
                     <encoding>UTF-8</encoding>
-                    <compilerArgument>-verbose -bootclasspath ${java.home}\lib\rt.jar</compilerArgument>
                 </configuration>
             </plugin>
 
