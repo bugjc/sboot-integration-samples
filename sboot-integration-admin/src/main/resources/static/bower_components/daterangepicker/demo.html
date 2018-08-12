@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+        <title> jQuery Daterangepicker 组件演示 </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+</head>
+<body>
+
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/font-awesome.css" />
+<link rel="stylesheet" href="css/daterangepicker.css" />
+
+<script src='js/jquery.js'></script>
+<script src='js/common.js'></script>
+<script src="js/date-time/moment.js?ver=1" type="text/javascript"></script>
+<script src="js/date-time/daterangepicker.zh-CN.js?ver=1" type="text/javascript"></script>
+<script src="js/date-time/daterangepicker.js?ver=1" type="text/javascript"></script>
+
+<div class="input-group" style="width: 240px; margin-left: -5px;">
+	<input class="form-control date-picker" id="dateTimeRange" value="" type="text">
+	<span class="input-group-addon">
+		<i class="fa fa-calendar bigger-110"></i>
+	</span>
+	<input name="beginTime" id="beginTime" value="" type="hidden">
+	<input name="endTime" id="endTime" value="" type="hidden">
+</div>
+<a href="javascript:;" onclick="begin_end_time_clear();">清除</a>
+
+<script type="text/javascript">
+$(function() {
+	$('#dateTimeRange').daterangepicker({
+		applyClass : 'btn-sm btn-success',
+		cancelClass : 'btn-sm btn-default',
+		locale: {
+			applyLabel: '确认',
+			cancelLabel: '取消',
+			fromLabel : '起始时间',
+			toLabel : '结束时间',
+			customRangeLabel : '自定义',
+			firstDay : 1
+		},
+		ranges : {
+			//'最近1小时': [moment().subtract('hours',1), moment()],
+			'今日': [moment().startOf('day'), moment()],
+			'昨日': [moment().subtract('days', 1).startOf('day'), moment().subtract('days', 1).endOf('day')],
+			'最近7日': [moment().subtract('days', 6), moment()],
+			'最近30日': [moment().subtract('days', 29), moment()],
+			'本月': [moment().startOf("month"),moment().endOf("month")],
+			'上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")]
+		},
+		opens : 'right',	// 日期选择框的弹出位置
+		separator : ' 至 ',
+		showWeekNumbers : true,		// 是否显示第几周
+
+
+		//timePicker: true,
+		//timePickerIncrement : 10,	// 时间的增量，单位为分钟
+		//timePicker12Hour : false,	// 是否使用12小时制来显示时间
+
+
+		//maxDate : moment(),			// 最大时间
+		format: 'YYYY-MM-DD'
+
+	}, function(start, end, label) { // 格式化日期显示框
+		$('#beginTime').val(start.format('YYYY-MM-DD'));
+		$('#endTime').val(end.format('YYYY-MM-DD'));
+	})
+	.next().on('click', function(){
+		$(this).prev().focus();
+	});
+});
+
+/**
+ * 清除时间
+ */
+function begin_end_time_clear() {
+	$('#dateTimeRange').val('');
+	$('#beginTime').val('');
+	$('#endTime').val('');
+}
+</script>
+</body>
+</html>
