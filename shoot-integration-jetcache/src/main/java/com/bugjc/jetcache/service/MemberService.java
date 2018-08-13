@@ -2,6 +2,7 @@ package com.bugjc.jetcache.service;
 
 import com.alicp.jetcache.anno.CacheInvalidate;
 import com.alicp.jetcache.anno.CacheType;
+import com.alicp.jetcache.anno.CacheUpdate;
 import com.alicp.jetcache.anno.Cached;
 import com.bugjc.jetcache.model.Member;
 
@@ -23,21 +24,22 @@ public interface MemberService {
      * @param memberId
      * @return
      */
-    Member findByMemberId(String memberId);
+    @Cached(name = "member:", key = "#memberId", expire = 300, cacheType = CacheType.BOTH)
+    Member findByMemberId(Integer memberId);
 
     /**
      * 更新会员信息
      * @param member
      */
-    //@CacheUpdate(name="Member-", key="#member.memberId", value="#member")
+    @CacheUpdate(name="member:", key="#member.memberId", value="#member")
     void updByMemberId(Member member);
 
     /**
      * 删除会员信息
      * @param memberId
      */
-    @CacheInvalidate(name="Member-", key="#memberId")
-    void delByMemberId(int memberId);
+    @CacheInvalidate(name="member:", key="#memberId")
+    void delByMemberId(Integer memberId);
 
 
 }

@@ -19,22 +19,28 @@ public class MemberWebTest{
 
     @Test
     public void testAddMember(){
-        Member member = new Member();
-        member.setCreateDate(new Date());
-        member.setAge(10);
-        member.setNickname("jack");
-        String result = HttpRequest.post(serverAddress+"/member")
-                .contentType("application/json")
-                .body(JSON.toJSONString(member))
-                .execute()
-                .body();
-        log.info(result);
+        for (int i = 0; i < 10; i++) {
+            Member member = new Member();
+            member.setCreateDate(new Date());
+            member.setAge(10+i);
+            member.setNickname("jack"+i);
+            HttpRequest.post(serverAddress+"/member")
+                    .contentType("application/json")
+                    .body(JSON.toJSONString(member))
+                    .execute()
+                    .body();
+            log.info("添加成功");
+        }
+
     }
 
     @Test
     public void testGetMember(){
-        String result = HttpRequest.get(serverAddress+"/member/1").execute().body();
-        log.info("查询结果"+result);
+        for (int i = 0; i < 1; i++) {
+            String result = HttpRequest.get(serverAddress+"/member/"+(i+1)).execute().body();
+            log.info("查询结果"+result);
+        }
+
     }
 
     @Test
@@ -50,6 +56,15 @@ public class MemberWebTest{
                 .execute()
                 .body();
         log.info("更新结果"+result);
+    }
+
+    @Test
+    public void testDelMember(){
+        HttpRequest.delete(serverAddress+"/member/1")
+                .contentType("application/json")
+                .execute()
+                .body();
+        log.info("删除成功");
     }
 
 }

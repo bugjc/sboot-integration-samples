@@ -1,7 +1,7 @@
 package com.bugjc.jetcache.service.impl;
 
-import com.alicp.jetcache.anno.CacheType;
-import com.alicp.jetcache.anno.Cached;
+import com.alicp.jetcache.Cache;
+import com.alicp.jetcache.anno.*;
 import com.bugjc.jetcache.dao.MemberDao;
 import com.bugjc.jetcache.model.Member;
 import com.bugjc.jetcache.service.MemberService;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author qingyang
@@ -16,6 +17,17 @@ import java.util.Date;
  */
 @Service
 public class MemberServiceImpl implements MemberService {
+
+
+    /**
+     * @CreateCache 创建缓存实例
+     * @CacheRefresh refresh + timeUnit = 60秒刷新，stopRefreshAfterLastAccess = 如果key长时间未被访问，则相关的刷新任务就会被自动移除。
+     * @CachePenetrationProtec 表示在多线程环境中同步加载数据
+     */
+    @CreateCache
+    @CacheRefresh(refresh = 60,stopRefreshAfterLastAccess = 120,timeUnit = TimeUnit.SECONDS)
+    @CachePenetrationProtect
+    private Cache<String,Member> cache;
 
     @Resource
     private MemberDao memberDao;
@@ -26,10 +38,9 @@ public class MemberServiceImpl implements MemberService {
         memberDao.insert(member);
     }
 
-    @Cached(name="Member-", key="#memberId", expire = 3600,cacheType = CacheType.LOCAL)
     @Override
-    public Member findByMemberId(String memberId) {
-        return memberDao.selectByMemberId(Integer.parseInt(memberId));
+    public Member findByMemberId(Integer memberId) {
+        return memberDao.selectByMemberId(memberId);
     }
 
     @Override
@@ -38,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void delByMemberId(int memberId) {
+    public void delByMemberId(Integer memberId) {
         memberDao.deleteByMemberId(memberId);
     }
 }

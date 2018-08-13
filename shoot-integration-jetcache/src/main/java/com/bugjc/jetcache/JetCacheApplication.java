@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author qingyang
  * @date 2018/8/12 07:01
  */
-@EnableMethodCache(basePackages = "com.bugjc。jetcache")
+@EnableMethodCache(basePackages = "com.bugjc.jetcache")
 @EnableCreateCacheAnnotation
 @SpringBootApplication
 public class JetCacheApplication {

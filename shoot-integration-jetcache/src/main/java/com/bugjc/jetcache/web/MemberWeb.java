@@ -26,16 +26,25 @@ public class MemberWeb {
     }
 
     @GetMapping("{memberId}")
-    public Member queryByMemberId(@PathVariable String memberId){
+    public Member queryByMemberId(@PathVariable Integer memberId){
         Member member = memberService.findByMemberId(memberId);
+        if (member == null){
+            return new Member();
+        }
         log.info("查询编号为【 "+memberId+" 】的会员记录成功，查询结果："+member.toString());
         return member;
     }
 
     @PutMapping("{memberId}")
-    public Member updMember(@PathVariable int memberId,@RequestBody Member member){
+    public Member updMember(@PathVariable Integer memberId,@RequestBody Member member){
         memberService.updByMemberId(member);
         log.info("修改编号为【 "+memberId+" 】的会员记录成功，更新结果："+member.toString());
         return member;
+    }
+
+    @DeleteMapping("{memberId}")
+    public void delMember(@PathVariable Integer memberId){
+        memberService.delByMemberId(memberId);
+        log.info("删除编号为【 "+memberId+" 】的会员记录成功");
     }
 }
