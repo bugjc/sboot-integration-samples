@@ -2,7 +2,7 @@ package com.bugjc.jetcache;
 
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.CacheGetResult;
-import com.alicp.jetcache.ResultData;
+import com.alicp.jetcache.CacheResultCode;
 import com.alicp.jetcache.anno.CachePenetrationProtect;
 import com.alicp.jetcache.anno.CacheRefresh;
 import com.alicp.jetcache.anno.CreateCache;
@@ -12,17 +12,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
-import java.util.concurrent.CompletionStage;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 异步 API
+ * 大写API
  * @author qingyang
  * @date 2018/8/12 19:41
  */
 @Slf4j
-public class JetCacheAsyncApiTest extends Tester {
-
+public class JetCacheUppercaseApiTest extends Tester {
 
     private static final String KEY_1 = "member:1";
 
@@ -36,25 +36,19 @@ public class JetCacheAsyncApiTest extends Tester {
     @CachePenetrationProtect
     private Cache<String, Member> cache;
 
-    @Before
-    public void testBefore(){
-        Member member = new Member();
-        member.setCreateDate(new Date());
-        member.setAge(10);
-        member.setNickname("jack");
-        cache.PUT(KEY_1, member);
-    }
-
     @Test
-    public void testAsync() throws InterruptedException {
+    public void testUppercaseApi() throws InterruptedException {
         CacheGetResult<Member> r = cache.GET(KEY_1);
-        CompletionStage<ResultData> future = r.future();
-        future.thenRun(() -> {
-            if(r.isSuccess()){
-                log.info("异步获取到缓存值"+r.getValue());
-            }
-        });
+        if (r.isSuccess()) {
+            Member member = r.getValue();
+            log.info("cache:" + member.toString());
+        } else if (r.getResultCode() == CacheResultCode.NOT_EXISTS) {
+            log.info("cache miss:" + KEY_1);
+        } else if (r.getResultCode() == CacheResultCode.EXPIRED) {
+            log.info("cache expired:" + KEY_1);
+        } else {
+            log.info("cache get error:" + KEY_1);
 
-        Thread.sleep(10000);
+        }
     }
 }
