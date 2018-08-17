@@ -44,6 +44,8 @@ public class JetCacheUppercaseApiTest extends Tester {
             log.info("cache:" + member.toString());
         } else if (r.getResultCode() == CacheResultCode.NOT_EXISTS) {
             log.info("cache miss:" + KEY_1);
+
+
         } else if (r.getResultCode() == CacheResultCode.EXPIRED) {
             log.info("cache expired:" + KEY_1);
         } else {
