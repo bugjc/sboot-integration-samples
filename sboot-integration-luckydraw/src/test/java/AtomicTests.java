@@ -1,3 +1,4 @@
+import cn.hutool.core.date.DateUtil;
 import org.junit.Test;
 
 /**
@@ -9,6 +10,7 @@ public class AtomicTests {
 
     @Test
     public void testUserDrawCountAtomic(){
+        System.out.println(DateUtil.current(false));
         String userId = "1";
 //        UserDrawCountComponent.init(userId,new AtomicInteger(10));
 //        UserDrawCountComponent.clear(userId);
