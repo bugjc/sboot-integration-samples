@@ -25,6 +25,7 @@
         <module>sboot-integration-encrypt</module>
         <module>sboot-integration-luckydraw</module>
         <module>shoot-integration-jetcache</module>
+        <module>sboot-integration-jib</module>
     </modules>
 
 
