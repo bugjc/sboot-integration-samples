@@ -15,7 +15,6 @@
         <module>sboot-integration-swagger</module>
         <module>sboot-integration-redis</module>
         <module>sboot-integration-mq</module>
-        <module>sboot-integration-jwt</module>
         <module>sboot-integration-rest</module>
         <module>sboot-integration-flywaydb</module>
         <module>sboot-integration-tx</module>
