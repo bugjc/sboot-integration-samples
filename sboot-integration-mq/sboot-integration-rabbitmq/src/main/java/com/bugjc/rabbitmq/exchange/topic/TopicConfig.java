@@ -4,7 +4,6 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,24 +14,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TopicConfig {
 
-    public static final String TEST_TOPIC_EXCHANGE = "test.topic";
-    public static final String INFO_log_QUEUE = "test.topic.info.log";
-    public static final String ERROR_log_QUEUE = "test.topic.error.log";
-    public static final String DEBUG_log_QUEUE = "test.topic.debug.log";
+    static final String TEST_TOPIC_EXCHANGE = "test.topic";
+    static final String INFO_LOG_QUEUE = "test.topic.info.log";
+    static final String ERROR_LOG_QUEUE = "test.topic.error.log";
+    private static final String DEBUG_LOG_QUEUE = "test.topic.debug.log";
 
     @Bean
     public Queue topicInfologQueue() {
-        return new Queue(INFO_log_QUEUE);
+        return new Queue(INFO_LOG_QUEUE);
     }
 
     @Bean
     public Queue topicErrorlogQueue() {
-        return new Queue(ERROR_log_QUEUE);
+        return new Queue(ERROR_LOG_QUEUE);
     }
 
     @Bean
     public Queue topicDebuglogQueue() {
-        return new Queue(DEBUG_log_QUEUE);
+        return new Queue(DEBUG_LOG_QUEUE);
     }
 
     @Bean

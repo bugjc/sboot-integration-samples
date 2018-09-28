@@ -20,11 +20,11 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @EnableRabbit
 @Configuration
 public class AmqpConfig {
-    public static final String EXCHANGE = "amqp.direct";
-    public static final String ROUTING_KEY_FAIL = "amqp.routingKey.failure";
-    public static final String ROUTING_KEY = "amqp.routingKey";
-    public static final String QUEUE_NAME = "amqp.demo";
-    public static final String QUEUE_NAME_FAIL = "amqp.demo.failure";
+    private static final String EXCHANGE = "amqp.direct";
+    private static final String ROUTING_KEY_FAIL = "amqp.routingKey.failure";
+    private static final String ROUTING_KEY = "amqp.routingKey";
+    static final String QUEUE_NAME = "amqp.demo";
+    private static final String QUEUE_NAME_FAIL = "amqp.demo.failure";
 
     //RabbitMQ的配置信息
     @Value("${spring.rabbitmq.host}")

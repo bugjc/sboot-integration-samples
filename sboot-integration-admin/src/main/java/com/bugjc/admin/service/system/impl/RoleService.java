@@ -4,10 +4,11 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import com.bugjc.admin.service.system.IRoleService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -21,18 +22,16 @@ import com.bugjc.admin.util.ParameterMap;
 import com.bugjc.admin.util.RightsHelper;
 import com.bugjc.admin.util.Tools;
 
-
+@Slf4j
 @Service
 public class RoleService implements IRoleService {
 
-	@Autowired
+	@Resource
 	private RoleDao roleDao;
 	
-	@Autowired
+	@Resource
 	private MenuService menuService;
-	
-	private Logger log = Logger.getLogger(this.getClass());
-	
+
 	@Override
 	public List<ParameterMap> list() {
 		return roleDao.list();

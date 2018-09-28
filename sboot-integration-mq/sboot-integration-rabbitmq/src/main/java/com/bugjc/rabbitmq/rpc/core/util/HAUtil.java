@@ -43,7 +43,7 @@ public class HAUtil {
         return timer.newTimeout(task, expTime, TimeUnit.MINUTES);
     }
 
-     /**根据任务的过期时间计算出格子位置并添加(自定义)**/
+    /**根据任务的过期时间计算出格子位置并添加(自定义)**/
     public static Timeout addTask(TimerTask task,int expTime,TimeUnit timeUnit){
         return timer.newTimeout(task, expTime, timeUnit);
     }

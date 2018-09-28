@@ -15,7 +15,6 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @Component

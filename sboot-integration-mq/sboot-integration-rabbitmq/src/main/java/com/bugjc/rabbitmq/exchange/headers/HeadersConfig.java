@@ -15,8 +15,8 @@ import java.util.Map;
 @Configuration
 public class HeadersConfig {
 
-    public static final String TEST_HEADERS_EXCHANGE = "test.headers";
-    public static final String TEST_HEADERS_A_QUEUE = "headers.a";
+    private static final String TEST_HEADERS_EXCHANGE = "test.headers";
+    private static final String TEST_HEADERS_A_QUEUE = "headers.a";
 
     @Bean
     public Queue headersA() {

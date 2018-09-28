@@ -11,7 +11,7 @@ public class Result {
     private String message;
     private Object data;
 
-    public Result setCode(ResultCode resultCode) {
+    Result setCode(ResultCode resultCode) {
         this.code = resultCode.getCode();
         return this;
     }
@@ -20,7 +20,7 @@ public class Result {
         return code;
     }
 
-    public Result setCode(int code) {
+    Result setCode(int code) {
         this.code = code;
         return this;
     }
@@ -38,7 +38,7 @@ public class Result {
         return data;
     }
 
-    public Result setData(Object data) {
+    Result setData(Object data) {
         this.data = data;
         return this;
     }

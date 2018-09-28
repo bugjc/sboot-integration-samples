@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+/**
+ * @author qingyang
+ */
 public class TransactionRuleUtil {
 
 
@@ -27,7 +30,7 @@ public class TransactionRuleUtil {
     /**
      * 自定义异常列表
      */
-    public static final Map<String,Object> exMap = new HashMap(){{
+    private static final HashMap EX_MAP = new HashMap(){{
         put("Exception", new Exception());
         put("RuntimeException", new BizException());
     }};
@@ -80,8 +83,8 @@ public class TransactionRuleUtil {
             return false;
         }
 
-        RuleAttribute RuleAttribute = JSON.parseObject(rule,RuleAttribute.class);
-        String regex = RuleAttribute.getName().replaceAll("\\*","(.*)").toString();
+        RuleAttribute ruleattribute = JSON.parseObject(rule,RuleAttribute.class);
+        String regex = ruleattribute.getName().replaceAll("\\*","(.*)").toString();
         return Pattern.matches(regex,input);
 
     }
@@ -106,7 +109,7 @@ public class TransactionRuleUtil {
     }
 
     public Exception getExMapByKey(String rollbackFor,Exception ex){
-        Exception exception = (Exception) exMap.get(rollbackFor);
+        Exception exception = (Exception) EX_MAP.get(rollbackFor);
         if (exception instanceof BizException){
             return new BizException(ex);
         }

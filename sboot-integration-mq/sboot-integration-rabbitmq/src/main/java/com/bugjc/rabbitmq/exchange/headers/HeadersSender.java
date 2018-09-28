@@ -13,9 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class HeadersSender {
 	
+    private final AmqpTemplate rabbitTemplate;
+
     @Autowired
-    private AmqpTemplate rabbitTemplate;
-    
+    public HeadersSender(AmqpTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
     public void send() {
     	log.info("Headers模式使用示例");
         rabbitTemplate.convertAndSend("headersExchange", "你好， 青木!");

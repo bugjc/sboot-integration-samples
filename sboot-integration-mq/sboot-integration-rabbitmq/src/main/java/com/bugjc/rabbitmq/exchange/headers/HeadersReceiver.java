@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HeadersReceiver {
 
-    //@RabbitListener(queues="{age:31}")
+    @RabbitListener(queues="{age:31}")
     public void processA(String str) {
         log.info("接收Headers模式的消息："+str);
     }

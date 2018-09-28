@@ -1,11 +1,5 @@
 package com.bugjc.admin.service.system.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
-
 import com.bugjc.admin.dao.system.MenuDao;
 import com.bugjc.admin.entity.system.Const;
 import com.bugjc.admin.entity.system.Menu;
@@ -15,18 +9,22 @@ import com.bugjc.admin.service.system.IMenuService;
 import com.bugjc.admin.util.DateUtil;
 import com.bugjc.admin.util.ParameterMap;
 import com.bugjc.admin.util.Tools;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Slf4j
 @Service
 public class MenuService implements IMenuService {
 
-	@Autowired
+	@Resource
 	private MenuDao menuDao;
-	
-	private Logger log = Logger.getLogger(this.getClass());
-	
+
 	@Override
 	public List<Menu> getAllParentMenuList() {
 		return menuDao.getAllParentMenu(0);

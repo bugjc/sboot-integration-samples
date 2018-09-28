@@ -16,7 +16,7 @@ public class FanoutReceiver {
      * 监听器监听指定的Queue
      * @param str
      */
-    @RabbitListener(queues=FanoutConfig.INFO_log_QUEUE)
+    @RabbitListener(queues=FanoutConfig.INFO_LOG_QUEUE)
     public void process1(String str) {
         log.info("接收Fanout模式INFO.log队列消息："+str);
     }
@@ -25,7 +25,7 @@ public class FanoutReceiver {
      * 监听器监听指定的Queue
      * @param str
      */
-    @RabbitListener(queues=FanoutConfig.ERROR_log_QUEUE)
+    @RabbitListener(queues=FanoutConfig.ERROR_LOG_QUEUE)
     public void process2(String str) {
         log.info("接收Fanout模式ERROR.log队列消息："+str);
     }

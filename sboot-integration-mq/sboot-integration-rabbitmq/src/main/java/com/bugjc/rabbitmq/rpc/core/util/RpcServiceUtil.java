@@ -54,7 +54,7 @@ public class RpcServiceUtil {
         Result result = null;
         JSONObject messageJsonObject = JSON.parseObject(message);
         if (messageJsonObject == null){
-            return ResultGenerator.genFailResult(RPCGlobalException.PARAM_EMPTY.getMessage()).toString();
+            return ResultGenerator.genFailResult("---").toString();
         }
 
         //获取参数
@@ -74,7 +74,7 @@ public class RpcServiceUtil {
 
         Class classes = object.getClass();
         //反射获取方法
-        Method cMethod = classes.getMethod(methodName, new Class[]{JSONObject.class});
+        Method cMethod = classes.getMethod(methodName, JSONObject.class);
         //反射执行方法
         result = (Result) cMethod.invoke(object, new Object[]{params});
         return result.toString();

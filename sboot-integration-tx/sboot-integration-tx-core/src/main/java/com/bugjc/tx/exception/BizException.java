@@ -11,15 +11,15 @@ public class BizException extends RuntimeException {
     /**
      * 异常信息
      */
-    protected String msg;
+    private String msg;
 
     /**
      * 具体异常码
      */
-    protected int code;
+    private int code;
 
-    public BizException(int code, String msgFormat) {
-        super(String.format(code+"|"+msgFormat));
+    BizException(int code, String msgFormat) {
+        super(code+"|"+msgFormat);
         this.code = code;
         this.msg = msgFormat;
     }

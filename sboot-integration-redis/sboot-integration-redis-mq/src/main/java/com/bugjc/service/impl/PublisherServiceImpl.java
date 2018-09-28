@@ -1,11 +1,11 @@
 package com.bugjc.service.impl;
 
 import com.bugjc.service.PublisherService;
-
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 消息发送
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PublisherServiceImpl implements PublisherService {
 
-    @Autowired
+    @Resource
     private StringRedisTemplate stringRedisTemplate;
 
     @Override

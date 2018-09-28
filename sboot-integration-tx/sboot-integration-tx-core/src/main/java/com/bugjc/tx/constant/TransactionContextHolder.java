@@ -37,6 +37,10 @@ public class TransactionContextHolder {
         return TIME.get();
     }
 
+    public static void clearTime(){
+        TIME.remove();
+    }
+
     /**
      * 线程内部唯一序列号：自增+1
      * @return
@@ -67,7 +71,6 @@ public class TransactionContextHolder {
     public static void clearTxObject() {
         TX_OBJECT.remove();
     }
-
 
     public static void clearTxGroupId() {
         TX_GROUP_ID.remove();

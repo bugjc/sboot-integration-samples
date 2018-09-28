@@ -18,7 +18,7 @@ import java.util.concurrent.TimeoutException;
 @Configuration
 public class DirectConfig {
 
-    public static final String QUEUE_NAME = "direct.test";
+    static final String QUEUE_NAME = "direct.test";
 
     @Bean
     public Queue directTestQueue() {

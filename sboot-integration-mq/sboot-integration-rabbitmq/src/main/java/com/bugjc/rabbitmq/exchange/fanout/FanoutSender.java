@@ -13,9 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanoutSender {
 	
+    private final AmqpTemplate rabbitTemplate;
+
     @Autowired
-    private AmqpTemplate rabbitTemplate;
-    
+    public FanoutSender(AmqpTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
     public void send(String msg) {
         log.info("Fanout模式使用示例");
         rabbitTemplate.convertAndSend(FanoutConfig.TEST_FANOUT_EXCHANGE, msg);

@@ -2,7 +2,7 @@ package com.bugjc.admin.controller.system;
 
 import com.bugjc.admin.util.DateUtil;
 import com.bugjc.admin.util.ImgUtil;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
@@ -15,12 +15,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+@Slf4j
 @Controller
 @RequestMapping("/upload")
 public class UploadController {
 
-	private Logger log = Logger.getLogger(this.getClass());
-	
 	private final ResourceLoader resourceLoader;  
 	
 	@Value("${upload.root.folder}")

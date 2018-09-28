@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import com.bugjc.admin.service.system.IUserService;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -36,30 +36,29 @@ import com.bugjc.admin.util.RightsHelper;
 import com.bugjc.admin.util.SHA;
 import com.bugjc.admin.util.Tools;
 
+@Slf4j
 @Service
 public class UserService implements IUserService {
 
-	@Autowired
+	@Resource
 	private UserDao userDao;
 	
-	@Autowired
+	@Resource
 	private RoleDao roleDao;
 
-	@Autowired
+	@Resource
 	private MenuService menuService;
 	
 	@Value("${upload.root.folder}")
-	public String root_fold;
+	public String rootFold;
 	
 	@Value("${img.folder}")
-	public String img_fold;
+	public String imgFold;
 	
 	@Value("${user.folder}")
-	public String user_folder;
-	
-	private Logger log = Logger.getLogger(this.getClass());
+	public String userFolder;
 
-	@Autowired
+	@Resource
 	private RedisTemplate<String, Object> redis;
 
 	
@@ -187,8 +186,8 @@ public class UserService implements IUserService {
 				pics = replaceBase64Before(pics);
 				byte[] bytes = Base64.base64ToByteArray(pics);
 				InputStream in = new ByteArrayInputStream(bytes);
-				String filePath = user_folder+Tools.random(8)+".png";
-				String userPath = ImgUtil.uploadImg(root_fold,filePath, in);
+				String filePath = userFolder +Tools.random(8)+".png";
+				String userPath = ImgUtil.uploadImg(rootFold,filePath, in);
 				pm.put("pic_path", userPath);
 			}
 			pm.put("create_time", DateUtil.getTime());
@@ -217,8 +216,8 @@ public class UserService implements IUserService {
 				pics = replaceBase64Before(pics);
 				byte[] bytes = Base64.base64ToByteArray(pics);
 				InputStream in = new ByteArrayInputStream(bytes);
-				String filePath = user_folder+Tools.random(8)+".png";
-				String userPath = ImgUtil.uploadImg(root_fold,filePath, in);
+				String filePath = userFolder +Tools.random(8)+".png";
+				String userPath = ImgUtil.uploadImg(rootFold,filePath, in);
 				pm.put("pic_path", userPath);
 				
 				String oldPath = pm.getString("oldpath");
@@ -228,7 +227,7 @@ public class UserService implements IUserService {
 				if(!"/images/logo.png".equals(oldPath)){
 					//删除旧头像
 					oldPath = oldPath.replaceAll("/upload/show","");
-					File file = new File(root_fold+oldPath);
+					File file = new File(rootFold +oldPath);
 					if(file.isFile()){
 						file.delete();
 					}
@@ -290,7 +289,7 @@ public class UserService implements IUserService {
 			if(!"/images/logo.png".equals(userPath)){
 				//删除旧头像
 				userPath = userPath.replaceAll("/upload/show","");
-				File file = new File(root_fold+userPath);
+				File file = new File(rootFold +userPath);
 				if(file.isFile()){
 					file.delete();
 				}

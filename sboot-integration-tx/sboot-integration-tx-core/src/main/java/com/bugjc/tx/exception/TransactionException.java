@@ -1,5 +1,8 @@
 package com.bugjc.tx.exception;
 
+/**
+ * @author qingyang
+ */
 public class TransactionException {
 
     public static final BizException TX_GROUP_TIMEOUT = new BizException(201, "事务组超时");

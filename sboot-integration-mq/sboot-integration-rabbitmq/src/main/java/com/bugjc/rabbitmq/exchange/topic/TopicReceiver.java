@@ -17,7 +17,7 @@ public class TopicReceiver {
      * 监听器监听指定的Queue
      * @param str
      */
-    @RabbitListener(queues=TopicConfig.INFO_log_QUEUE)
+    @RabbitListener(queues=TopicConfig.INFO_LOG_QUEUE)
     public void process1(String str) {
         log.info("接收Topic模式INFO.log队列消息:"+str);
     }
@@ -26,7 +26,7 @@ public class TopicReceiver {
      * 监听器监听指定的Queue
      * @param str
      */
-    @RabbitListener(queues=TopicConfig.ERROR_log_QUEUE)
+    @RabbitListener(queues=TopicConfig.ERROR_LOG_QUEUE)
     public void process2(String str) {
         log.info("接收Topic模式ERROR.log队列消息:"+str);
     }

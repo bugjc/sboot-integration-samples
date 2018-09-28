@@ -2,7 +2,6 @@ package com.bugjc.admin.controller;
 
 import com.bugjc.admin.config.GlobalProperty;
 import com.bugjc.admin.util.ParameterMap;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
@@ -17,9 +16,6 @@ import javax.servlet.http.HttpSession;
 
 
 public class BaseController {
-	
-	protected Logger log = Logger.getLogger(this.getClass());
-
 	@Autowired
 	private GlobalProperty globalProperty;
 

@@ -25,7 +25,7 @@ public class Service {
 	@Value("${message:World}")
 	private String msg;
 
-	public String message() {
+	String message() {
 		return this.msg;
 	}
 

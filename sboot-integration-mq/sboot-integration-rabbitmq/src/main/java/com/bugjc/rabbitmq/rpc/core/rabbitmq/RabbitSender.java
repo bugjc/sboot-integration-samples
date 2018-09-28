@@ -1,7 +1,6 @@
 package com.bugjc.rabbitmq.rpc.core.rabbitmq;
 
 import cn.hutool.core.date.DateUnit;
-import com.bugjc.rabbitmq.rpc.config.RabbitConfig;
 import com.bugjc.rabbitmq.rpc.core.util.HAUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;

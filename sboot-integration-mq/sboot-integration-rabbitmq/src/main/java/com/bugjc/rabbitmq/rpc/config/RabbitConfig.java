@@ -29,13 +29,13 @@ public class RabbitConfig {
 	public static final String QUEUE_ASYNC_RPC_WITH_FIXED_REPLY_TEST= "rpc.with.fixed.reply.test";
 
 	/**交换器**/
-	public static final String EXCHANGE_TEST = "member.topic.test";
+	private static final String EXCHANGE_TEST = "member.topic.test";
 
 	/**队列**/
-	public static final String QUEUE_TEST = "member.queue.test.100";
+	private static final String QUEUE_TEST = "member.queue.test.100";
 
 	/**route key**/
-	public static final String ROUTING_KEY_TEST = "member.queue.test.*";
+	private static final String ROUTING_KEY_TEST = "member.queue.test.*";
 
 
 	@Bean
